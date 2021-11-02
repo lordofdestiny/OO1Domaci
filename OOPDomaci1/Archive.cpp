@@ -38,53 +38,12 @@ Archive& Archive::addFlight(Flight* flight) {
 	return *this;
 }
 
-Archive::FlightNode* Archive::getFlightsFrom(std::string from) {
+Archive::FlightNode* Archive::filterAlgortihm(bool c1, bool c2, CityNamePair pair) {
 	FlightNode* result = nullptr;
 	FlightNode* tail = nullptr;
 	FlightNode* temp = fligtsHead;
 	while (temp != nullptr) {
-		if (temp->flight->getStartingPointName() == from) {
-			FlightNode* newNode = new FlightNode{ temp->flight };
-			if (tail == nullptr) {
-				result = newNode;
-			}
-			else {
-				tail->next = newNode;
-			}
-			tail = newNode;
-		}
-		temp = temp->next;
-	}
-	return result;
-}
-
-Archive::FlightNode* Archive::getFlightsToo(std::string to) {
-	FlightNode* result = nullptr;
-	FlightNode* tail = nullptr;
-	FlightNode* temp = fligtsHead;
-	while (temp != nullptr) {
-		if (temp->flight->getDestinationPointName() == to) {
-			FlightNode* newNode = new FlightNode{ temp->flight };
-			if (tail == nullptr) {
-				result = newNode;
-			}
-			else {
-				tail->next = newNode;
-			}
-			tail = newNode;
-		}
-		temp = temp->next;
-	}
-	return result;
-}
-
-Archive::FlightNode* Archive::getFlightsFromTo(std::string from, std::string to) {
-	FlightNode* result = nullptr;
-	FlightNode* tail = nullptr;
-	FlightNode* temp = fligtsHead;
-	while (temp != nullptr) {
-		if (temp->flight->getStartingPointName() == from && 
-			temp->flight->getDestinationPointName() == to) {
+		if ( Archive::filterCondition(temp->flight, c1, c2, pair) ) {
 			FlightNode* newNode = new FlightNode{ temp->flight };
 			if (tail == nullptr) {
 				result = newNode;
