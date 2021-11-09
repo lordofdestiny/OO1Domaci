@@ -1,5 +1,5 @@
 #pragma once
-// Dodat neki komentar
+
 #include <string>
 #include "Plane.h"
 
