@@ -4,12 +4,10 @@
 
 class PlaneFleet
 {
-public:
 	struct PlaneNode {
 		Plane* plane;
 		PlaneNode* next = nullptr;
 	};
-private:
 	std::string name;
 	PlaneNode* planesHead;
 	PlaneNode* planesTail;
@@ -31,6 +29,9 @@ public:
 	Plane* getLargestCapacityPlane();
 
 	PlaneNode* getAllInRange(unsigned, unsigned);
+
+	friend void printPlanes(PlaneFleet::PlaneNode* planes);
+	friend void deletePlanes(PlaneFleet::PlaneNode* planes);
 
 	void print();
 };

@@ -22,7 +22,7 @@ public:
 	Plane& setPilot(Pilot* const pilot);
 	Plane& setCopilot(Pilot* const pilot);
 
-	std::string getName() const {
+	const std::string& getName() const {
 		return name;
 	}
 

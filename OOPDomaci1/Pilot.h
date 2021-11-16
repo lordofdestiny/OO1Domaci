@@ -17,7 +17,7 @@ public:
 	Pilot(Pilot&&) = default;
 	Pilot& operator=(Pilot&&) = default;
 
-	std::string getName() const {
+	const std::string& getName() const {
 		return this->name;
 	}
 

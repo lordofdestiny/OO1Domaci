@@ -57,3 +57,29 @@ Archive::FlightNode* Archive::filterAlgortihm(bool c1, bool c2, CityNamePair pai
 	}
 	return result;
 }
+
+
+std::ostream& operator<<(std::ostream& os, const Archive& archive) {
+	os << "AHIVA\n";
+	Archive::FlightNode* temp = archive.fligtsHead;
+	while (temp != nullptr) {
+		os << *temp->flight << '\n';
+		temp = temp->next;
+	}
+	return os;
+}
+
+void printFlights(Archive::FlightNode* flights) {
+	while (flights != nullptr) {
+		std::cout << *flights->flight << '\n';
+		flights = flights->next;
+	}
+}
+
+void deleteFlights(Archive::FlightNode* flights) {
+	while (flights != nullptr) {
+		Archive::FlightNode* keep = flights;
+		flights = flights->next;
+		delete keep;
+	}
+}

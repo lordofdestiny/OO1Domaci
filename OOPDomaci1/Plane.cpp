@@ -10,6 +10,6 @@ Plane& Plane::setPilot(Pilot* const pilot) {
 
 Plane& Plane::setCopilot(Pilot* const pilot) {
 	this->copilot = pilot;
-	this->pilot->setFlightStatus(true);
+	this->copilot->setFlightStatus(true);
 	return *this;
 }

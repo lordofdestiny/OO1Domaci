@@ -5,37 +5,6 @@
 #include "Flight.h"
 #include "Archive.h"
 
-void printPlanes(PlaneFleet::PlaneNode* planes) {
-	while (planes != nullptr) {
-		std::cout << *planes->plane << '\n';
-		planes = planes->next;
-	}
-}
-
-void deletePlanes(PlaneFleet::PlaneNode* planes) {
-	while (planes != nullptr) {
-		PlaneFleet::PlaneNode* keep = planes;
-		planes = planes->next;
-		delete keep;
-	}
-}
-
-void printFlights(Archive::FlightNode* flights) {
-	while (flights != nullptr) {
-		std::cout << *flights->flight << '\n';
-		flights = flights->next;
-	}
-}
-
-void deleteFlights(Archive::FlightNode* flights) {
-	while (flights != nullptr) {
-		Archive::FlightNode* keep = flights;
-		flights = flights->next;
-		delete keep;
-	}
-}
-
-
 int main()
 {
 	PlaneFleet fleet("Vuciceve delije");

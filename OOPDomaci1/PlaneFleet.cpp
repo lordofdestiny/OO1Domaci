@@ -133,3 +133,19 @@ void PlaneFleet::print() {
 		temp = temp->next;
 	}
 }
+
+void printPlanes(PlaneFleet::PlaneNode* planes) {
+	while (planes != nullptr) {
+		std::cout << *planes->plane << '\n';
+		planes = planes->next;
+	}
+}
+
+void deletePlanes(PlaneFleet::PlaneNode* planes) {
+	while (planes != nullptr) {
+		PlaneFleet::PlaneNode* keep = planes;
+		planes = planes->next;
+		delete keep;
+	}
+}
+
