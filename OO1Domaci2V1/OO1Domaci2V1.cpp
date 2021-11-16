@@ -8,6 +8,7 @@ int main()
 	Cvet gerber("Gerber", 70, 120);
 	Cvet ruza("Ruza", 90, 180);
 	Cvet karanfil("Karanfil", 50, 120);
+	Cvet cvetic("Cvetic", 10, 11);
 	Cvet test("Ruza", 230, 500);
 
 	std::cout << (ruza == test ? "Ruza je ista kao test cvet\n" : "Ova dva cveta nisu ista!\n");
@@ -27,6 +28,11 @@ int main()
 	bouquet3.addFlower(ruza);
 	bouquet3.addFlower(ruza);
 
+	Buket bouquet4;
+	bouquet4.addFlower(cvetic);
+	bouquet4.addFlower(cvetic);
+	bouquet4.addFlower(cvetic);
+
 	std::cout << (bouquet1 > bouquet2 ? "Prvi" : "Drugi") << " buket je skuplji!\n";
 	std::cout << std::string(30, '-') << '\n';
 
@@ -34,12 +40,17 @@ int main()
 	std::cout << bouquet1 << '\n';
 	std::cout << bouquet2 << '\n';
 	std::cout << bouquet3 << '\n';
+	std::cout << bouquet4 << '\n';
 	std::cout << std::string(30, '-') << '\n';
 
 	Cvecara cvecara;
 	cvecara.addBouquet(bouquet1);
 	cvecara.addBouquet(bouquet2);
 	cvecara.addBouquet(bouquet3);
+	if (!cvecara.addBouquet(bouquet4)) {
+		std::cout << "Buket nije dodat jer ne ispunjava uslov!\n";
+		std::cout << "Procenat: " << 100. * bouquet4.getEarnings() / bouquet4.getBuyPrice() << "%\n";
+	}
 	if (cvecara.sellBouquet(1)) {
 		std::cout << "Uspesno prodat buket sa indeksom!\n";
 	}
