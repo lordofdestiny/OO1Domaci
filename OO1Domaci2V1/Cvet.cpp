@@ -13,17 +13,17 @@ Cvet::Cvet(Cvet&& other) noexcept :
 
 Cvet& Cvet::operator=(Cvet const& rhs) {
 	if (this != &rhs) {
-		this->name = rhs.name;
-		this->buyPrice = rhs.buyPrice;
-		this->sellPrice = rhs.sellPrice;
+		name = rhs.name;
+		buyPrice = rhs.buyPrice;
+		sellPrice = rhs.sellPrice;
 	}
 	return *this;
 }
 Cvet& Cvet::operator=(Cvet&& rhs) noexcept {
 	if (this != &rhs) {
-		this->name = std::move(name);
-		this->buyPrice = std::exchange(rhs.buyPrice, 0);
-		this->sellPrice = std::exchange(rhs.sellPrice, 0);
+		name = std::move(name);
+		buyPrice = std::exchange(rhs.buyPrice, 0);
+		sellPrice = std::exchange(rhs.sellPrice, 0);
 	}
 	return *this;
 }

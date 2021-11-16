@@ -1,5 +1,14 @@
 #include "Cvecara.h"
 
+Cvecara::Cvecara(Cvecara const& rhs) :
+	totalEarned(rhs.totalEarned),
+	bouquets(rhs.copyBouquets()) {}
+
+
+Cvecara::Cvecara(Cvecara&& rhs) noexcept :
+	totalEarned(std::exchange(rhs.totalEarned, 0)),
+	bouquets(std::exchange(rhs.bouquets, nullptr)) {};
+
 Cvecara::NodePointer Cvecara::copyBouquets() const {
 	NodePointer tmp = bouquets;
 	NodePointer head = nullptr, tail = nullptr;

@@ -36,7 +36,7 @@ public:
 	friend std::ostream& operator<<(std::ostream& os, Buket const& bouquet);
 private:
 	using PriceGetter = unsigned (Cvet::*)() const;
-	unsigned getValueAlgorithm(unsigned (Cvet::*)() const) const;
+	unsigned getValueAlgorithm(PriceGetter) const;
 	NodePointer copyFlowers() const;
 	void freeFlowers();
 	NodePointer flowers;

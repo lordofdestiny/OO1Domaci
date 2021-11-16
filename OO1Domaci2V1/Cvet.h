@@ -9,7 +9,7 @@ public:
 	Cvet(std::string name, unsigned buyPrice, unsigned sellPrice);
 	Cvet(Cvet const& other) = default;
 	Cvet(Cvet&& other) noexcept;
-	std::string getName() const {
+	const std::string& getName() const {
 		return name;
 	}
 	unsigned getBuyPrice() const {

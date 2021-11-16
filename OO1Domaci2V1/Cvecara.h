@@ -15,12 +15,11 @@ private:
 	};
 public:
 	Cvecara() : bouquets(nullptr) {}
-	Cvecara(Cvecara const& rhs) : 
-		totalEarned(rhs.totalEarned),
-		bouquets(rhs.copyBouquets()) {}
-	Cvecara(Cvecara&& rhs) noexcept:
-		totalEarned(std::exchange(rhs.totalEarned, 0)),
-		bouquets(std::exchange(rhs.bouquets, nullptr)) {};
+	Cvecara(Cvecara const& rhs);
+	Cvecara(Cvecara&& rhs) noexcept;
+	~Cvecara() {
+		freeBouquets();
+	}
 	bool addBouquet(const Buket&);
 	bool sellBouquet(unsigned index);
 	friend std::ostream& operator<<(std::ostream& os, Cvecara const& cvecara);
