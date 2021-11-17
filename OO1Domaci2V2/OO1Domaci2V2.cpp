@@ -7,7 +7,7 @@
 * kreira string duzine 40 u kome su samo zvezdice.
 * To sam koristio da razdvajam ispis da bude citkiji
 * Postoje overloadi operatora << za ostream i za funkciju koja
-* uzima i vraca ostream kao argument. Tako da sam to iskoristio 
+* uzima i vraca ostream kao argument. Tako da sam to iskoristio
 * kako bih olaksao ispis. Sada za razdvajanje mogu da koristim
 * samo std::cout << seprarate, slicno kao za std::cout <<std::endl,
 * jer je std::endl takodje funkcija
@@ -48,7 +48,7 @@ int main()
 	std::cout << b2 << separate;
 	std::cout << b3 << separate;
 	std::cout << "Prazna biblioteka: " << std::endl;
-	std::cout << Biblioteka("temp",100) << separate;
+	std::cout << Biblioteka("temp", 100) << separate;
 
 	std::cout << *b1.getBookById(6) << '\n';
 	if (b1.getBookById(10) == nullptr) {
@@ -84,4 +84,13 @@ int main()
 	std::cout << b3 << separate;
 	std::cout << b5 << separate << separate;
 
+	std::cout << "Test overfilling\n";
+	Biblioteka bx("Poslednja biblioteka", 2);
+	bx += k1;
+	bx += k2;
+	bx += k3;
+	std::cout << bx;
+	bx += k4;
+	std::cout << bx;
+	std::cout << separate;
 }
