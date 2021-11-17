@@ -21,8 +21,7 @@ Biblioteka::Biblioteka(Biblioteka&& rhs) noexcept :
 
 Biblioteka& Biblioteka::operator=(Biblioteka const& other) {
 	if (this != &other) {
-		freeAllBooks();
-		delete[] books;
+		freeMemory();
 		name = other.name;
 		capacity = other.capacity;
 		book_count = other.book_count;
@@ -34,8 +33,7 @@ Biblioteka& Biblioteka::operator=(Biblioteka const& other) {
 
 Biblioteka& Biblioteka::operator=(Biblioteka&& other) noexcept {
 	if (this != &other) {
-		freeAllBooks();
-		delete[] books;
+		freeMemory();
 		name = std::move(other.name);
 		capacity = std::exchange(other.capacity, 0);
 		book_count = std::exchange(other.book_count, 0);
@@ -45,7 +43,13 @@ Biblioteka& Biblioteka::operator=(Biblioteka&& other) noexcept {
 }
 
 Biblioteka::~Biblioteka() {
-	freeAllBooks();
+	freeMemory();
+}
+
+void Biblioteka::freeMemory() {
+	for (count_type i = 0; i < book_count; i++) {
+		delete books[i];
+	}
 	delete[] books;
 }
 
@@ -57,12 +61,6 @@ const Knjiga* const Biblioteka::getBookById(Knjiga::id_type id) const {
 		}
 	}
 	return result;
-}
-
-void Biblioteka::freeAllBooks() {
-	for (count_type i = 0; i < book_count; i++) {
-		delete books[i];
-	}
 }
 
 void Biblioteka::copyNewBooksFrom(Knjiga** books) {

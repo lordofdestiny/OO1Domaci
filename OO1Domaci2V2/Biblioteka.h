@@ -34,7 +34,7 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& os, Biblioteka const& biblioteka);
 private:
-	void freeAllBooks();
+	void freeMemory();
 	void copyNewBooksFrom(Knjiga**);
 	std::string name;
 	count_type capacity;
