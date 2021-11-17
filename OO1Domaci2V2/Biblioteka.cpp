@@ -57,7 +57,8 @@ const Knjiga* const Biblioteka::getBookById(Knjiga::id_type id) const {
 	Knjiga* result = nullptr;
 	for (count_type i = 0; i < book_count; i++) {
 		if (books[i]->getID() == id) {
-			result = books[i]; break;
+			result = books[i]; 
+			break;
 		}
 	}
 	return result;
