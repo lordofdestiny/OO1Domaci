@@ -21,12 +21,13 @@ Biblioteka::Biblioteka(Biblioteka&& rhs) noexcept :
 
 Biblioteka& Biblioteka::operator=(Biblioteka const& other) {
 	if (this != &other) {
+		books = new Knjiga * [capacity];
+		copyNewBooksFrom(other.books);
+
 		freeMemory();
 		name = other.name;
 		capacity = other.capacity;
 		book_count = other.book_count;
-		books = new Knjiga * [capacity];
-		copyNewBooksFrom(other.books);
 	}
 	return *this;
 }
