@@ -67,7 +67,7 @@ const Knjiga* const Biblioteka::getBookById(Knjiga::id_type id) const {
 void Biblioteka::copyNewBooksFrom(Knjiga** books) {
 	if (capacity > book_count) {
 		for (count_type i = 0; i < book_count; i++) {
-			this->books[i] = new Knjiga(!*books[i]);
+			this->books[i] = !*books[i];
 		}
 	}
 }
@@ -77,7 +77,7 @@ bool Biblioteka::addBook(const Knjiga& knjiga) {
 		return false;
 	}
 	else {
-		books[book_count++] = new Knjiga(!knjiga);
+		books[book_count++] = !knjiga;
 		return true;
 	}
 }

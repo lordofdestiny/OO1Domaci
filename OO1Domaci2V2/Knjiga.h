@@ -20,8 +20,8 @@ public:
 	id_type getID() const {
 		return id;
 	}
-	Knjiga operator!() const {
-		return { this->title,this->author };
+	Knjiga* operator!() const {
+		return new Knjiga(this->title, this->author);
 	}
 	friend std::ostream& operator<<(std::ostream& os, Knjiga const& knjiga);
 private:
