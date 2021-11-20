@@ -18,7 +18,7 @@ void Buket::addFlower(Cvet const& flower) {
 	}
 	else {
 		NodePointer tmp = flowers;
-		while (tmp != nullptr && tmp->flower.getName() != flower.getName()) {
+		while (tmp != nullptr && tmp->flower != flower) {
 			tmp = tmp->next;
 		}
 		if (tmp == nullptr) {

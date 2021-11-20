@@ -3,13 +3,13 @@
 
 Biblioteka::Biblioteka(std::string name, count_type capacity) :
 	name(name), capacity(capacity),
-	books(new Knjiga* [capacity]) {}
+	books(allocateNewMemory(capacity)) {}
 
 
 Biblioteka::Biblioteka(Biblioteka const& rhs) :
 	name(rhs.name), capacity(rhs.capacity),
 	book_count(rhs.book_count),
-	books(new Knjiga* [capacity]) {
+	books(allocateNewMemory(capacity)) {
 	copyNewBooksFrom(rhs.books);
 }
 
@@ -21,13 +21,15 @@ Biblioteka::Biblioteka(Biblioteka&& rhs) noexcept :
 
 Biblioteka& Biblioteka::operator=(Biblioteka const& other) {
 	if (this != &other) {
-		books = new Knjiga * [capacity];
-		copyNewBooksFrom(other.books);
+		Knjiga** newMemory = allocateNewMemory(other.capacity);
 
 		freeMemory();
+
 		name = other.name;
 		capacity = other.capacity;
 		book_count = other.book_count;
+		books = newMemory;
+		copyNewBooksFrom(other.books);
 	}
 	return *this;
 }
@@ -58,7 +60,7 @@ const Knjiga* const Biblioteka::getBookById(Knjiga::id_type id) const {
 	Knjiga* result = nullptr;
 	for (count_type i = 0; i < book_count; i++) {
 		if (books[i]->getID() == id) {
-			result = books[i]; 
+			result = books[i];
 			break;
 		}
 	}
@@ -71,6 +73,10 @@ void Biblioteka::copyNewBooksFrom(Knjiga** books) {
 			this->books[i] = !*books[i];
 		}
 	}
+}
+
+Knjiga** Biblioteka::allocateNewMemory(count_type size) {
+	return new Knjiga * [size];
 }
 
 bool Biblioteka::addBook(const Knjiga& knjiga) {
@@ -87,7 +93,7 @@ std::ostream& operator<<(std::ostream& os, Biblioteka const& biblioteka) {
 	os << "BIBLIOTEKA " << biblioteka.name;
 	os << " " << biblioteka.book_count << '/' << biblioteka.capacity << '\n';
 	for (Biblioteka::count_type i = 0; i < biblioteka.book_count; i++) {
-		os << *biblioteka.books[i] <<'\n';
+		os << *biblioteka.books[i] << '\n';
 	}
 	return os;
 }

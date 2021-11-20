@@ -18,5 +18,13 @@
     <ClCompile Include="OO1Domaci2V3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Skup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Skup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
