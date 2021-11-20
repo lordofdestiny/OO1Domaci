@@ -47,7 +47,7 @@ bool Rec::rhymes(Rec const& first, Rec const& second) {
 		i1++;
 		i2++;
 	}
-	return i1 == +first && i2 == +second;;
+	return i1 == +first && i2 == +second;
 }
 
 std::string Rec::createWord(std::string const& str) {

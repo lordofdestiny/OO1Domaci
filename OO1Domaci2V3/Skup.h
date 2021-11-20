@@ -13,8 +13,11 @@ public:
 	Skup() = default;
 	Skup(std::string const&);
 	Skup(Skup const&) = delete;
-	Skup(Skup&&) noexcept;
-	~Skup();
+	Skup(Skup&& other) noexcept :
+		data(std::exchange(other.data, nullptr)) {}
+	~Skup() {
+		deleteAll();
+	}
 	Skup& operator=(Skup const&) = delete;
 	Skup& operator=(Skup&&) noexcept;
 
@@ -24,7 +27,7 @@ public:
 	bool has(char) const;
 	bool operator()(char) const;
 private:
-	NodePointer hasChar(char) const;
+	NodePointer findChar(char) const;
 	bool insertChar(char);
 	void deleteAll();
 

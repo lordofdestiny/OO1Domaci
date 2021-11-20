@@ -7,13 +7,6 @@ Skup::Skup(std::string const& str) {
 	}
 }
 
-Skup::Skup(Skup&& other) noexcept :
-	data(std::exchange(other.data, nullptr)) {}
-
-Skup::~Skup() {
-	deleteAll();
-}
-
 Skup& Skup::operator=(Skup&& rhs) noexcept {
 	if (this != &rhs) {
 		data = std::exchange(rhs.data, nullptr);
@@ -31,15 +24,15 @@ Skup& Skup::operator+=(char c) {
 	return *this;
 }
 
-bool Skup::has(char c) const{
-	return hasChar(c) != nullptr;
+bool Skup::has(char c) const {
+	return findChar(c) != nullptr;
 }
 
-bool Skup::operator()(char c) const{
-	return hasChar(c) != nullptr;
+bool Skup::operator()(char c) const {
+	return findChar(c) != nullptr;
 }
 
-Skup::NodePointer Skup::hasChar(char c) const{
+Skup::NodePointer Skup::findChar(char c) const {
 	NodePointer tmp = data;
 	while (tmp != nullptr) {
 		if (tmp->c == c) {
@@ -72,7 +65,7 @@ bool Skup::insertChar(char c) {
 	return true;
 }
 
-void Skup::deleteAll(){
+void Skup::deleteAll() {
 	NodePointer tmp = data;
 	while (tmp != nullptr) {
 		delete std::exchange(tmp, tmp->next);
