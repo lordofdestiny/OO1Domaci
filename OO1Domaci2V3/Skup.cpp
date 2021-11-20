@@ -31,15 +31,15 @@ Skup& Skup::operator+=(char c) {
 	return *this;
 }
 
-bool Skup::has(char c) {
+bool Skup::has(char c) const{
 	return hasChar(c) != nullptr;
 }
 
-bool Skup::operator()(char c) {
+bool Skup::operator()(char c) const{
 	return hasChar(c) != nullptr;
 }
 
-Skup::NodePointer Skup::hasChar(char c) {
+Skup::NodePointer Skup::hasChar(char c) const{
 	NodePointer tmp = data;
 	while (tmp != nullptr) {
 		if (tmp->c == c) {

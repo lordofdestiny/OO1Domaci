@@ -21,10 +21,10 @@ public:
 	Skup& add(char);
 	Skup& operator+=(char);
 
-	bool has(char);
-	bool operator()(char);
+	bool has(char) const;
+	bool operator()(char) const;
 private:
-	NodePointer hasChar(char);
+	NodePointer hasChar(char) const;
 	bool insertChar(char);
 	void deleteAll();
 

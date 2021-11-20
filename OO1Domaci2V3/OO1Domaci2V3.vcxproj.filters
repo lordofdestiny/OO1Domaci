@@ -21,9 +21,15 @@
     <ClCompile Include="Skup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Rec.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Skup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
