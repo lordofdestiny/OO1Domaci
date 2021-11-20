@@ -20,7 +20,7 @@ public:
 		return *this;
 	}
 
-	const Knjiga* const getBookById(Knjiga::id_type id) const;
+	Knjiga const& getBookById(Knjiga::id_type id) const;
 
 	const std::string& getName() const {
 		return name;
