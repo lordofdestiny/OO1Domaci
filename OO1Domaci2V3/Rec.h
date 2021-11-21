@@ -7,6 +7,7 @@
 class Rec
 {
 public:
+	Rec() = default;
 	Rec(const char* str) :
 		Rec(std::string(str)) {}
 	Rec(std::string str) :
@@ -19,21 +20,17 @@ public:
 	int operator+() const {
 		return static_cast<int>(word.length());
 	}
+
 	int operator~() const {
 		return countSyllables();
 	}
+
 	int operator()(int n) const {
 		return getNthSyllableCarrier(n);
 	}
 
 	bool operator^(Rec const& other) const {
 		return rhymes(*this, other);
-	}
-	char& operator[](int i) {
-		return word[i];
-	}
-	const char& operator[](int i) const {
-		return word[i];
 	}
 
 	friend std::istream& operator>>(std::istream& is, Rec& rec);
