@@ -23,7 +23,11 @@ public:
 	~Cvecara() {
 		freeBouquets();
 	}
-	bool addBouquet(const Buket&);
+
+	Cvecara& operator=(Cvecara const&);
+	Cvecara& operator=(Cvecara&&) noexcept;
+
+	bool addBouquet(Buket const&);
 	bool sellBouquet(int index);
 	friend std::ostream& operator<<(std::ostream& os, Cvecara const& cvecara);
 private:
