@@ -36,7 +36,7 @@ public:
 private:
 	void freeMemory();
 	Knjiga** allocateNewMemory(count_type);
-	void copyNewBooksFrom(Knjiga**);
+	void copyBooksFrom(Knjiga**);
 	std::string name;
 	count_type capacity;
 	count_type book_count = 0;

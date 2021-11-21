@@ -5,12 +5,11 @@ Biblioteka::Biblioteka(std::string name, count_type capacity) :
 	name(name), capacity(capacity),
 	books(allocateNewMemory(capacity)) {}
 
-
 Biblioteka::Biblioteka(Biblioteka const& rhs) :
 	name(rhs.name), capacity(rhs.capacity),
 	book_count(rhs.book_count),
-	books(allocateNewMemory(capacity)) {
-	copyNewBooksFrom(rhs.books);
+	books(allocateNewMemory(rhs.capacity)) {
+	copyBooksFrom(rhs.books);
 }
 
 Biblioteka::Biblioteka(Biblioteka&& rhs) noexcept :
@@ -29,7 +28,7 @@ Biblioteka& Biblioteka::operator=(Biblioteka const& other) {
 		capacity = other.capacity;
 		book_count = other.book_count;
 		books = newMemory;
-		copyNewBooksFrom(other.books);
+		copyBooksFrom(other.books);
 	}
 	return *this;
 }
@@ -67,25 +66,23 @@ Knjiga const& Biblioteka::getBookById(Knjiga::id_type id) const {
 	return *result;
 }
 
-void Biblioteka::copyNewBooksFrom(Knjiga** books) {
-	if (capacity > book_count) {
-		for (count_type i = 0; i < book_count; i++) {
-			this->books[i] = !*books[i];
-		}
+bool Biblioteka::addBook(const Knjiga& knjiga) {
+	bool inserted = book_count < capacity;
+	if (book_count < capacity) {
+		books[book_count++] = !knjiga;
 	}
+	return inserted;
 }
 
 Knjiga** Biblioteka::allocateNewMemory(count_type size) {
 	return new Knjiga * [size];
 }
 
-bool Biblioteka::addBook(const Knjiga& knjiga) {
-	if (book_count >= capacity) {
-		return false;
-	}
-	else {
-		books[book_count++] = !knjiga;
-		return true;
+void Biblioteka::copyBooksFrom(Knjiga** books) {
+	if (capacity > book_count) {
+		for (count_type i = 0; i < book_count; i++) {
+			this->books[i] = !*books[i];
+		}
 	}
 }
 
