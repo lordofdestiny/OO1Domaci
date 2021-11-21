@@ -55,7 +55,7 @@ void Biblioteka::freeMemory() {
 	delete[] books;
 }
 
-Knjiga const& Biblioteka::getBookById(Knjiga::id_type id) const {
+const Knjiga* Biblioteka::getBookById(Knjiga::id_type id) const {
 	Knjiga* result = nullptr;
 	for (count_type i = 0; i < book_count; i++) {
 		if (books[i]->getID() == id) {
@@ -63,7 +63,7 @@ Knjiga const& Biblioteka::getBookById(Knjiga::id_type id) const {
 			break;
 		}
 	}
-	return *result;
+	return result;
 }
 
 bool Biblioteka::addBook(const Knjiga& knjiga) {
