@@ -45,12 +45,6 @@ private:
 	static std::string createWord(std::string const&);
 	static const inline Skup vocals{ "aeiou" };
 	static const inline Skup sonants{ "lrn" };
-	static bool isVocal(char c) {
-		return vocals.has(std::tolower(c));
-	}
-	static bool isSonant(char c) {
-		return sonants.has(std::tolower(c));
-	}
 	std::string word;
 };
 
