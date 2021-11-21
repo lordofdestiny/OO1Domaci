@@ -14,23 +14,6 @@ Skup& Skup::operator=(Skup&& rhs) noexcept {
 	return *this;
 }
 
-Skup& Skup::add(char c) {
-	insertChar(c);
-	return *this;
-}
-
-Skup& Skup::operator+=(char c) {
-	return add(c);
-}
-
-bool Skup::has(char c) const {
-	return findChar(c) != nullptr;
-}
-
-bool Skup::operator()(char c) const {
-	return has(c);
-}
-
 Skup::NodePointer Skup::findChar(char c) const {
 	NodePointer tmp = data;
 	while (tmp != nullptr) {
@@ -64,9 +47,10 @@ bool Skup::insertChar(char c) {
 	return true;
 }
 
-void Skup::deleteAll() {
+void Skup::freeChars() {
 	NodePointer tmp = data;
 	while (tmp != nullptr) {
 		delete std::exchange(tmp, tmp->next);
 	}
+	data = nullptr;
 }
