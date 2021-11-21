@@ -47,17 +47,14 @@ int main()
 	cvecara.addBouquet(bouquet1);
 	cvecara.addBouquet(bouquet2);
 	cvecara.addBouquet(bouquet3);
-	if (!cvecara.addBouquet(bouquet4)) {
-		std::cout << "Buket nije dodat jer ne ispunjava uslov!\n";
-		std::cout << "Procenat: " << bouquet4.getPercentEarnings() << "%\n";
-	}
+	cvecara.addBouquet(bouquet4);
+
 	if (cvecara.sellBouquet(1)) {
 		std::cout << "Uspesno prodat buket sa indeksom!\n";
 	}
 	if (!cvecara.sellBouquet(10)) {
 		std::cout << "Neuspelo prodat buket, los indeks!\n";
 	}
-	/*Proveri sto su svi buketi 0 dinara*/
 	std::cout << "Cvecara:\n";
 	std::cout << cvecara << std::endl;
 }
