@@ -20,8 +20,7 @@ Skup& Skup::add(char c) {
 }
 
 Skup& Skup::operator+=(char c) {
-	insertChar(c);
-	return *this;
+	return add(c);
 }
 
 bool Skup::has(char c) const {
@@ -29,7 +28,7 @@ bool Skup::has(char c) const {
 }
 
 bool Skup::operator()(char c) const {
-	return findChar(c) != nullptr;
+	return has(c);
 }
 
 Skup::NodePointer Skup::findChar(char c) const {
