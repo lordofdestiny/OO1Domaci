@@ -39,6 +39,10 @@ public:
 		return name == other.name;
 	}
 
+	bool operator!=(Cvet const& other) const {
+		return !(*this == other);
+	}
+
 	friend std::ostream& operator<<(std::ostream& os, Cvet const& cvet);
 private:
 	std::string name;
