@@ -35,12 +35,12 @@ public:
 		return sellPrice - buyPrice;
 	}
 
-	bool operator==(Cvet const& other) const {
-		return name == other.name;
+	friend bool operator==(Cvet const& left, Cvet const& right) {
+		return left.name == right.name;
 	}
 
-	bool operator!=(Cvet const& other) const {
-		return !(*this == other);
+	friend bool operator!=(Cvet const& left, Cvet const& right) {
+		return !(left == right);
 	}
 
 	friend std::ostream& operator<<(std::ostream& os, Cvet const& cvet);

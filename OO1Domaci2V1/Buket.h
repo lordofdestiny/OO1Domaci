@@ -44,8 +44,8 @@ public:
 		return earningsCache;
 	}
 
-	bool operator>(const Buket& other) const {
-		return getSellPrice() > other.getSellPrice();
+	friend bool operator>(Buket const& left,Buket const& right) {
+		return left.getSellPrice() > right.getSellPrice();
 	}
 
 	friend std::ostream& operator<<(std::ostream& os, Buket const& bouquet);

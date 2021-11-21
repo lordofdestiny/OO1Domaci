@@ -29,8 +29,8 @@ public:
 		return getNthSyllableCarrier(n);
 	}
 
-	bool operator^(Rec const& other) const {
-		return rhymes(*this, other);
+	friend bool operator^(Rec const& first, Rec const& second) {
+		return rhymes(first, second);
 	}
 
 	friend std::istream& operator>>(std::istream& is, Rec& rec);
