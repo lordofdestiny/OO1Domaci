@@ -4,7 +4,7 @@ Buket::NodePointer Buket::copyFlowers() const {
 	NodePointer tmp = flowers;
 	NodePointer head = nullptr, tail = nullptr;
 	while (tmp != nullptr) {
-		NodePointer newNode = new Node(tmp->flower, tmp->count);
+		NodePointer newNode = new Node(tmp->flower);
 		tail = (head == nullptr ? head : tail->next) = newNode;
 		tmp = tmp->next;
 	}
@@ -12,22 +12,8 @@ Buket::NodePointer Buket::copyFlowers() const {
 }
 
 void Buket::addFlower(Cvet const& flower) {
-	if (flowers == nullptr) {
-		flowers = new Node(flower);
-	}
-	else {
-		NodePointer tmp = flowers;
-		while (tmp != nullptr && tmp->flower != flower) {
-			tmp = tmp->next;
-		}
-		if (tmp == nullptr) {
-			NodePointer newNode = new Node(flower);
-			newNode->next = std::exchange(flowers, newNode);
-		}
-		else {
-			tmp->count += 1;
-		}
-	}
+	NodePointer node = new Node(flower);
+	node->next = std::exchange(flowers, node);
 	updateCache();
 }
 
@@ -35,6 +21,7 @@ void Buket::freeFlowers() {
 	while (flowers != nullptr) {
 		delete std::exchange(flowers, flowers->next);
 	}
+	flowers = nullptr;
 }
 
 void Buket::updateCache() {
@@ -43,9 +30,9 @@ void Buket::updateCache() {
 	int sellPrice = 0;
 	int earnings = 0;
 	while (tmp != nullptr) {
-		buyPrice += tmp->count * tmp->flower.getBuyPrice();
-		sellPrice += tmp->count * tmp->flower.getSellPrice();
-		earnings += tmp->count * tmp->flower.getEarnings();
+		buyPrice += tmp->flower.getBuyPrice();
+		sellPrice += tmp->flower.getSellPrice();
+		earnings += tmp->flower.getEarnings();
 		tmp = tmp->next;
 	}
 	this->buyPriceCache = buyPrice;
@@ -60,7 +47,18 @@ std::ostream& operator<<(std::ostream& os, Buket const& bouquet) {
 		os << tmp->flower;
 		tmp = tmp->next;
 		while (tmp != nullptr) {
-			os << "," << tmp->flower;
+			bool print = true;
+			Buket::NodePointer tmp2 = bouquet.flowers;
+			while (tmp2 != tmp) {
+				if (tmp2->flower == tmp->flower) {
+					print = false;
+					break;
+				}
+				tmp2 = tmp2->next;
+			}
+			if (print) {
+				os << "," << tmp->flower;
+			}
 			tmp = tmp->next;
 		}
 	}
