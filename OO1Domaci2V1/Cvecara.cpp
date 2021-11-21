@@ -1,14 +1,5 @@
 #include "Cvecara.h"
 
-Cvecara::Cvecara(Cvecara const& rhs) :
-	totalEarned(rhs.totalEarned),
-	bouquets(rhs.copyBouquets()) {}
-
-
-Cvecara::Cvecara(Cvecara&& rhs) noexcept :
-	totalEarned(std::exchange(rhs.totalEarned, 0)),
-	bouquets(std::exchange(rhs.bouquets, nullptr)) {};
-
 Cvecara::NodePointer Cvecara::copyBouquets() const {
 	NodePointer tmp = bouquets;
 	NodePointer head = nullptr, tail = nullptr;
@@ -26,26 +17,31 @@ void Cvecara::freeBouquets() {
 	}
 }
 
-
 bool Cvecara::addBouquet(Buket const& bouquet) {
-	double percent = 100. * bouquet.getEarnings() / bouquet.getBuyPrice();
-	if (!(percent < 20)) {
+	double percent = bouquet.getPercentEarnings();
+	if (percent >= 20) {
 		Node* newNode = new Node(bouquet);
 		newNode->next = std::exchange(this->bouquets, newNode);
 		this->totalEarned -= bouquet.getBuyPrice();
 	}
-	return !(percent < 20);
+	return percent >= 20;
 }
 
-bool Cvecara::sellBouquet(unsigned index) {
-	if (index < 0) return false; //Invalid index
+bool Cvecara::sellBouquet(int index) {
+	if (index < 0) return false; // Index undeflow
+	if (bouquets == nullptr) return false; // No bouquets
 	NodePointer prev = nullptr, tmp = bouquets;
 	while (index > 0 && tmp != nullptr) {
 		prev = std::exchange(tmp, tmp->next);
 		index--;
 	}
-	if (tmp == nullptr) return false; // Invalid index
+	if (tmp == nullptr) return false; // Index overflow
 	NodePointer keep = tmp;
+	/*  Ovaj warrning ne moze da  se ispuni, prev nikad nece biti nullptr
+		Drugi if izlazi iz funkcije ako je bouquets nullptr
+		Ako bukets nije bio nullptr bouquet ce napraviti bar jednu iteraciju
+		i prev ce se promeniti na vrednost koja nije nullptr
+	*/
 	prev->next = tmp->next;
 	this->totalEarned += keep->bouquet.getSellPrice();
 	delete keep;
