@@ -8,20 +8,25 @@ public:
 	Knjiga(std::string title, std::string author) :
 		title(title), author(author), id(next_id++) {}
 	Knjiga(Knjiga const&) = delete;
-	Knjiga(Knjiga&&) noexcept;
+	Knjiga(Knjiga&& rhs) noexcept :
+		title(std::move(rhs.title)),
+		author(std::move(rhs.author)),
+		id(std::exchange(rhs.id, -1)) {}
+
 	Knjiga& operator=(Knjiga const&) = delete;
 	Knjiga& operator=(Knjiga&&) noexcept;
-	const std::string& getName() const {
+
+	std::string const& getName() const {
 		return title;
 	}
-	const std::string& getAuthor() const {
+	std::string const& getAuthor() const {
 		return author;
 	}
 	id_type getID() const {
 		return id;
 	}
 	Knjiga* operator!() const {
-		return new Knjiga(this->title, this->author);
+		return new Knjiga(title, author);
 	}
 	friend std::ostream& operator<<(std::ostream& os, Knjiga const& knjiga);
 private:

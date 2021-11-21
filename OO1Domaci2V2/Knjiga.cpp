@@ -1,12 +1,6 @@
 #include "Knjiga.h"
 #include <iostream>
 
-Knjiga::Knjiga(Knjiga&& rhs) noexcept :
-	title(std::move(rhs.title)),
-	author(std::move(rhs.author)),
-	id(std::exchange(rhs.id, -1)) {}
-
-
 Knjiga& Knjiga::operator=(Knjiga&& other) noexcept {
 	if (this != &other) {
 		title = std::move(other.title);
