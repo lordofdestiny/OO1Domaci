@@ -37,7 +37,7 @@ bool Rec::rhymes(Rec const& first, Rec const& second) {
 	int firstSyll = (~first == 1 || ~second == 1) ? -1 : -2;
 	int i1 = first(firstSyll), i2 = second(firstSyll);
 	while (i1 < +first && i2 < +second &&
-		tolower(first[i1]) == tolower(second[i2])) {
+		tolower(first.word[i1]) == tolower(second.word[i2])) {
 		i1++; i2++;
 	}
 	return i1 == +first && i2 == +second;
