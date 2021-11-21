@@ -16,20 +16,23 @@ public:
 	Skup(Skup&& other) noexcept :
 		data(std::exchange(other.data, nullptr)) {}
 	~Skup() {
-		deleteAll();
+		freeChars();
 	}
 	Skup& operator=(Skup const&) = delete;
 	Skup& operator=(Skup&&) noexcept;
 
-	Skup& add(char);
-	Skup& operator+=(char);
+	Skup& operator+=(char c) {
+		insertChar(c);
+		return *this;
+	}
 
-	bool has(char) const;
-	bool operator()(char) const;
+	bool operator()(char c) const {
+		return findChar(c) != nullptr;
+	}
 private:
 	NodePointer findChar(char) const;
 	bool insertChar(char);
-	void deleteAll();
+	void freeChars();
 
 	NodePointer data = nullptr;
 };
