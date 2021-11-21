@@ -6,32 +6,46 @@
 class Cvet
 {
 public:
-	Cvet(std::string name, unsigned buyPrice, unsigned sellPrice);
+	Cvet(std::string name, int buyPrice, int sellPrice) :
+		name(name),
+		buyPrice(buyPrice),
+		sellPrice(sellPrice) {}
 	Cvet(Cvet const& other) = default;
-	Cvet(Cvet&& other) noexcept;
+	Cvet(Cvet && other) noexcept :
+		name(std::move(other.name)),
+		buyPrice(std::exchange(other.buyPrice, 0)),
+		sellPrice(std::exchange(other.sellPrice, 0)) {}
+
 	const std::string& getName() const {
 		return name;
 	}
-	unsigned getBuyPrice() const {
+
+	int getBuyPrice() const {
 		return buyPrice;
 	}
-	unsigned getSellPrice() const {
+
+	int getSellPrice() const {
 		return sellPrice;
 	}
-	unsigned getEarnings() const {
+
+	int getEarnings() const {
 		return sellPrice - buyPrice;
 	}
+
 	Cvet& operator=(Cvet const& rhs);
 	Cvet& operator=(Cvet&& rhs) noexcept;
-	bool operator==(Cvet const& other) const{
+
+	bool operator==(Cvet const& other) const {
 		return name == other.name;
 	}
+
 	bool operator!=(Cvet const& other) const {
 		return !(*this == other);
 	}
+
 	friend std::ostream& operator<<(std::ostream& os, Cvet const& cvet);
 private:
 	std::string name;
-	unsigned buyPrice, sellPrice;
+	int buyPrice, sellPrice;
 };
 
