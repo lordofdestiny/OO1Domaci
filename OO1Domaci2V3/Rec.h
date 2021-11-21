@@ -17,6 +17,13 @@ public:
 	Rec(Rec&& w) noexcept :
 		word(std::move(w.word)) {}
 
+	Rec& operator=(Rec const&) = default;
+	Rec& operator=(Rec&& other) noexcept {
+		if (this != &other) {
+			word = std::move(other.word);
+		}
+	}
+
 	int operator+() const {
 		return static_cast<int>(word.length());
 	}
