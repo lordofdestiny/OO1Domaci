@@ -1,5 +1,24 @@
 #include "Cvecara.h"
 
+Cvecara& Cvecara::operator=(Cvecara const& other) {
+	if (this != &other) {
+		NodePointer newBouquets = other.copyBouquets();
+		freeBouquets();
+		totalEarned = other.totalEarned;
+		bouquets = newBouquets;
+	}
+	return *this;
+}
+
+Cvecara& Cvecara::operator=(Cvecara&& other) noexcept {
+	if (this != &other) {
+		freeBouquets();
+		totalEarned = std::exchange(other.totalEarned, 0);
+		bouquets = std::exchange(other.bouquets, nullptr);
+	}
+	return *this;
+}
+
 Cvecara::NodePointer Cvecara::copyBouquets() const {
 	NodePointer tmp = bouquets;
 	NodePointer head = nullptr, tail = nullptr;
@@ -15,10 +34,11 @@ void Cvecara::freeBouquets() {
 	while (bouquets != nullptr) {
 		delete std::exchange(bouquets, bouquets->next);
 	}
+	bouquets = nullptr;
 }
 
 bool Cvecara::addBouquet(Buket const& bouquet) {
-	double percent = bouquet.getPercentEarnings();
+	double percent = bouquet.getBuyPrice() * 100.0 / bouquet.getSellPrice();
 	if (percent >= 20) {
 		Node* newNode = new Node(bouquet);
 		newNode->next = std::exchange(this->bouquets, newNode);
