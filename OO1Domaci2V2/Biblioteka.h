@@ -13,15 +13,6 @@ public:
 	Biblioteka& operator=(Biblioteka&&) noexcept;
 	~Biblioteka();
 
-	bool addBook(const Knjiga& knjiga);
-
-	Biblioteka& operator+= (const Knjiga& knjiga) {
-		addBook(knjiga);
-		return *this;
-	}
-
-	Knjiga const& getBookById(Knjiga::id_type id) const;
-
 	const std::string& getName() const {
 		return name;
 	}
@@ -32,8 +23,16 @@ public:
 		return capacity;
 	}
 
+	const Knjiga* getBookById(Knjiga::id_type id) const;
+
+	Biblioteka& operator+=(const Knjiga& knjiga) {
+		addBook(knjiga);
+		return *this;
+	}
+
 	friend std::ostream& operator<<(std::ostream& os, Biblioteka const& biblioteka);
 private:
+	bool addBook(const Knjiga& knjiga);
 	void freeMemory();
 	Knjiga** allocateNewMemory(count_type);
 	void copyBooksFrom(Knjiga**);
