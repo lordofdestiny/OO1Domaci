@@ -40,7 +40,7 @@ int main()
 	Biblioteka b2("Gradska biblioteka Beograd", 4);
 	(b2 += k1) += k2;
 	Biblioteka b3("Univerzitetska biblioteka", 10);
-	b3.addBook(k4);
+	b3 += k4;
 	b3 += k5;
 	b3 += k6;
 
@@ -50,7 +50,7 @@ int main()
 	std::cout << "Prazna biblioteka: " << std::endl;
 	std::cout << Biblioteka("temp", 100) << separator;
 
-	std::cout << *b1.getBookById(6) << '\n';
+	std::cout << b1.getBookById(6) << '\n';
 	if (b1.getBookById(10) == nullptr) {
 		std::cout << "Knjiga sa ovim id-em ne postoji u ovoj biblioteci\n";
 	}
