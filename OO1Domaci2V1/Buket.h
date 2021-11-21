@@ -2,43 +2,63 @@
 #include <utility>
 #include <ostream>
 #include "Cvet.h"
-
 class Buket
 {
 private:
-	struct Node;
-	using NodePointer = Node*;
 	struct Node {
 		Cvet flower;
-		unsigned count = 1;
-		NodePointer next = nullptr;
-		Node(const Cvet& flower, unsigned count = 1) :
+		int count;
+		Node* next = nullptr;
+		Node(const Cvet& flower, int count = 1) :
 			flower(flower), count(count) {}
 	};
+	using NodePointer = Node*;
 public:
-	Buket() :flowers(nullptr) {}
+	Buket() = default;
 	Buket(Buket const& rhs) :
-		flowers(rhs.copyFlowers()) {};
+		flowers(rhs.copyFlowers()) {
+		updateCache();
+	};
 	Buket(Buket&& rhs)  noexcept :
-		flowers(std::exchange(rhs.flowers, nullptr)) {}
+		flowers(std::exchange(rhs.flowers, nullptr)) {
+		updateCache();
+	}
 	~Buket() {
 		freeFlowers();
+		updateCache();
 	}
+
 	void addFlower(Cvet const&);
-	unsigned getBuyPrice() const;
-	unsigned getSellPrice() const;
-	unsigned getEarnings() const;
+
+	int getBuyPrice() const {
+		return buyPriceCache;
+	}
+	int getSellPrice() const {
+		return sellPriceCache;
+	}
+	int getEarnings() const {
+		return earningsCache;
+	}
+
+	double getPercentEarnings() const {
+		return earningsCache * 100.0 / buyPriceCache;
+	};
+
 	bool operator>(const Buket& other) const {
 		return getSellPrice() > other.getSellPrice();
 	}
+
 	Buket& operator=(Buket const&);
 	Buket& operator=(Buket&&) noexcept;
 	friend std::ostream& operator<<(std::ostream& os, Buket const& bouquet);
 private:
-	using PriceGetter = unsigned (Cvet::*)() const;
-	unsigned getValueAlgorithm(PriceGetter) const;
 	NodePointer copyFlowers() const;
 	void freeFlowers();
-	NodePointer flowers;
+	void updateCache();
+	NodePointer flowers = nullptr;
+	/* Cache values to optimize access */
+	int buyPriceCache = 0;
+	int sellPriceCache = 0;
+	int earningsCache = 0;
 };
 
