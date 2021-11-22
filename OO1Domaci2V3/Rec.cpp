@@ -32,9 +32,9 @@ int Rec::getNthSyllableCarrier(int n) const {
 	return result;
 }
 
-/* case innsensitive compare*/
-int cicmp(char c1, char c2) {
-	return tolower(c1) - tolower(c2);
+/* case innsensitive equality check*/
+int ciequal(char c1, char c2) {
+	return tolower(c1) == tolower(c2);
 }
 
 bool Rec::rhymes(Rec const& first, Rec const& second) {
@@ -42,7 +42,7 @@ bool Rec::rhymes(Rec const& first, Rec const& second) {
 	int i = first(firstSyll), j = second(firstSyll);
 	if (i < 0 || j < 0) return false;
 	while (i < +first && j < +second &&
-		cicmp(first.word[i], second.word[j]) > 0) {
+		ciequal(first.word[i], second.word[j])) {
 		i++; j++;
 	}
 	return i == +first && j == +second;
