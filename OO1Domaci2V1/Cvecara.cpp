@@ -38,34 +38,47 @@ void Cvecara::freeBouquets() {
 }
 
 bool Cvecara::addBouquet(Buket const& bouquet) {
-	double percent = bouquet.getBuyPrice() * 100.0 / bouquet.getSellPrice();
+	double percent = bouquet.getEarnings() * 100.0 / bouquet.getSellPrice();
 	if (percent >= 20) {
-		Node* newNode = new Node(bouquet);
-		newNode->next = std::exchange(this->bouquets, newNode);
+		NodePointer node = new Node(bouquet);
 		this->totalEarned -= bouquet.getBuyPrice();
+		if (bouquets == nullptr ||
+			bouquets->bouquet.getSellPrice() > node->bouquet.getSellPrice()) {
+			node->next = std::exchange(bouquets, node);
+		}
+		else {
+			NodePointer tmp = bouquets;
+			while (tmp->next != nullptr &&
+				node->bouquet.getSellPrice() <= tmp->bouquet.getSellPrice()) {
+				tmp = tmp->next;
+			}
+			node->next = std::exchange(tmp->next, node);
+		}
 	}
 	return percent >= 20;
 }
 
 bool Cvecara::sellBouquet(int index) {
-	if (index < 0) return false; // Index undeflow
-	if (bouquets == nullptr) return false; // No bouquets
-	NodePointer prev = nullptr, tmp = bouquets;
-	while (index > 0 && tmp != nullptr) {
-		prev = std::exchange(tmp, tmp->next);
-		index--;
+	bool wasDeleted = false;
+	if (index >= 0 && bouquets != nullptr) {
+		NodePointer prev = nullptr, tmp = bouquets;
+		while (tmp != nullptr && index > 0) {
+			prev = std::exchange(tmp, tmp->next);
+			--index;
+		}
+		if (tmp != nullptr) {
+			this->totalEarned += tmp->bouquet.getSellPrice();
+			if (tmp == bouquets) {
+				delete std::exchange(bouquets, bouquets->next);
+			}
+			else {
+				prev->next = tmp->next;
+				delete tmp;
+			}
+			wasDeleted = true;
+		}
 	}
-	if (tmp == nullptr) return false; // Index overflow
-	NodePointer keep = tmp;
-	/*  Ovaj warrning ne moze da  se ispuni, prev nikad nece biti nullptr
-		Drugi if izlazi iz funkcije ako je bouquets nullptr
-		Ako bukets nije bio nullptr bouquet ce napraviti bar jednu iteraciju
-		i prev ce se promeniti na vrednost koja nije nullptr
-	*/
-	prev->next = tmp->next;
-	this->totalEarned += keep->bouquet.getSellPrice();
-	delete keep;
-	return true;
+	return wasDeleted;
 }
 
 std::ostream& operator<<(std::ostream& os, Cvecara const& cvecara) {
