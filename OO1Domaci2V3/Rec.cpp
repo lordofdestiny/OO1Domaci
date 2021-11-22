@@ -32,15 +32,20 @@ int Rec::getNthSyllableCarrier(int n) const {
 	return result;
 }
 
+/* case innsensitive compare*/
+int cicmp(char c1, char c2) {
+	return tolower(c1) - tolower(c2);
+}
 
 bool Rec::rhymes(Rec const& first, Rec const& second) {
 	int firstSyll = (~first == 1 || ~second == 1) ? -1 : -2;
-	int i1 = first(firstSyll), i2 = second(firstSyll);
-	while (i1 < +first && i2 < +second &&
-		tolower(first.word[i1]) == tolower(second.word[i2])) {
-		i1++; i2++;
+	int i = first(firstSyll), j = second(firstSyll);
+	if (i < 0 || j < 0) return false;
+	while (i < +first && j < +second &&
+		cicmp(first.word[i], second.word[j]) > 0) {
+		i++; j++;
 	}
-	return i1 == +first && i2 == +second;
+	return i == +first && j == +second;
 }
 
 std::string Rec::createWord(std::string const& str) {

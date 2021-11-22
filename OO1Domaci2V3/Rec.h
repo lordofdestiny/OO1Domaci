@@ -47,8 +47,7 @@ private:
 	int getNthSyllableCarrier(int) const;
 	static bool rhymes(Rec const&, Rec const&);
 	static std::string createWord(std::string const&);
-	static const inline Skup vocals{ "aeiou" };
-	static const inline Skup sonants{ "lrn" };
+	static const inline Skup vocals{ "aeiouAEIOU" };
+	static const inline Skup sonants{ "lrnLRN" };
 	std::string word;
 };
-
