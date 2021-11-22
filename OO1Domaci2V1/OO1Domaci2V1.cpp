@@ -49,6 +49,7 @@ int main()
 	cvecara.addBouquet(bouquet3);
 	cvecara.addBouquet(bouquet4);
 
+	std::cout << cvecara << std::endl;
 	if (cvecara.sellBouquet(1)) {
 		std::cout << "Uspesno prodat buket sa indeksom!\n";
 	}
@@ -57,4 +58,5 @@ int main()
 	}
 	std::cout << "Cvecara:\n";
 	std::cout << cvecara << std::endl;
+
 }

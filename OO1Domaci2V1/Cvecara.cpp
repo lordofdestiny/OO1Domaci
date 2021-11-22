@@ -1,4 +1,5 @@
 #include "Cvecara.h"
+#include <iostream>
 
 Cvecara& Cvecara::operator=(Cvecara const& other) {
 	if (this != &other) {
@@ -49,7 +50,7 @@ bool Cvecara::addBouquet(Buket const& bouquet) {
 		else {
 			NodePointer tmp = bouquets;
 			while (tmp->next != nullptr &&
-				node->bouquet.getSellPrice() <= tmp->bouquet.getSellPrice()) {
+				tmp->next->bouquet.getSellPrice() <= node->bouquet.getSellPrice()) {
 				tmp = tmp->next;
 			}
 			node->next = std::exchange(tmp->next, node);
