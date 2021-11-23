@@ -16,13 +16,15 @@ private:
 public:
 	Buket() = default;
 	Buket(Buket const& rhs) :
-		flowers(rhs.copyFlowers()) {
-		updateCache();
-	};
-	Buket(Buket&& rhs)  noexcept :
-		flowers(std::exchange(rhs.flowers, nullptr)) {
-		updateCache();
-	}
+		flowers(rhs.copyFlowers()),
+		buyPriceCache(rhs.buyPriceCache),
+		sellPriceCache(rhs.sellPriceCache),
+		earningsCache(rhs.earningsCache) {};
+	Buket(Buket&& rhs) noexcept :
+		flowers(std::exchange(rhs.flowers, nullptr)),
+		buyPriceCache(std::exchange(rhs.buyPriceCache, 0)),
+		sellPriceCache(std::exchange(rhs.sellPriceCache, 0)),
+		earningsCache(std::exchange(rhs.earningsCache, 0)) {}
 	~Buket() {
 		freeFlowers();
 		updateCache();
@@ -44,7 +46,7 @@ public:
 		return earningsCache;
 	}
 
-	friend bool operator>(Buket const& left,Buket const& right) {
+	friend bool operator>(Buket const& left, Buket const& right) {
 		return left.getSellPrice() > right.getSellPrice();
 	}
 
