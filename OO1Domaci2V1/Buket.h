@@ -9,7 +9,7 @@ private:
 	struct Node {
 		Cvet flower;
 		Node* next = nullptr;
-		Node(const Cvet& flower) :
+		Node(const Cvet& flower, Node* next = nullptr) :
 			flower(flower) {}
 	};
 	using NodePointer = Node*;
@@ -27,7 +27,9 @@ public:
 		earningsCache(std::exchange(rhs.earningsCache, 0)) {}
 	~Buket() {
 		freeFlowers();
-		updateCache();
+		buyPriceCache = 0;
+		sellPriceCache = 0;
+		earningsCache = 0;
 	}
 
 	Buket& operator=(Buket const&);
@@ -54,7 +56,6 @@ public:
 private:
 	NodePointer copyFlowers() const;
 	void freeFlowers();
-	void updateCache();
 	NodePointer flowers = nullptr;
 	/* Cache values to optimize access */
 	int buyPriceCache = 0;

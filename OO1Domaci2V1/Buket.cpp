@@ -14,7 +14,9 @@ Buket::NodePointer Buket::copyFlowers() const {
 void Buket::addFlower(Cvet const& flower) {
 	NodePointer node = new Node(flower);
 	node->next = std::exchange(flowers, node);
-	updateCache();
+	buyPriceCache += node->flower.getBuyPrice();
+	sellPriceCache += node->flower.getSellPrice();
+	earningsCache += node->flower.getEarnings();
 }
 
 void Buket::freeFlowers() {
@@ -22,22 +24,6 @@ void Buket::freeFlowers() {
 		delete std::exchange(flowers, flowers->next);
 	}
 	flowers = nullptr;
-}
-
-void Buket::updateCache() {
-	NodePointer tmp = flowers;
-	int buyPrice = 0;
-	int sellPrice = 0;
-	int earnings = 0;
-	while (tmp != nullptr) {
-		buyPrice += tmp->flower.getBuyPrice();
-		sellPrice += tmp->flower.getSellPrice();
-		earnings += tmp->flower.getEarnings();
-		tmp = tmp->next;
-	}
-	this->buyPriceCache = buyPrice;
-	this->sellPriceCache = sellPrice;
-	this->earningsCache = earnings;
 }
 
 std::ostream& operator<<(std::ostream& os, Buket const& bouquet) {
@@ -70,7 +56,9 @@ Buket& Buket::operator=(Buket const& other) {
 		NodePointer newData = other.copyFlowers();
 		freeFlowers();
 		flowers = newData;
-		updateCache();
+		buyPriceCache = other.buyPriceCache;
+		sellPriceCache = other.sellPriceCache;
+		earningsCache = other.earningsCache;
 	}
 	return *this;
 }
@@ -79,7 +67,9 @@ Buket& Buket::operator=(Buket&& other) noexcept {
 	if (this != &other) {
 		freeFlowers();
 		flowers = std::exchange(other.flowers, nullptr);
-		updateCache();
+		buyPriceCache = std::exchange(other.buyPriceCache, 0);
+		sellPriceCache = std::exchange(other.sellPriceCache, 0);
+		earningsCache = std::exchange(other.earningsCache, 0);
 	}
 	return *this;
 }
