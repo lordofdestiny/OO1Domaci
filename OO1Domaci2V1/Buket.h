@@ -9,7 +9,7 @@ private:
 	struct Node {
 		Cvet flower;
 		Node* next = nullptr;
-		Node(const Cvet& flower, int count = 1) :
+		Node(const Cvet& flower) :
 			flower(flower) {}
 	};
 	using NodePointer = Node*;
