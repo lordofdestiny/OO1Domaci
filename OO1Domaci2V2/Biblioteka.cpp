@@ -51,8 +51,10 @@ Biblioteka::~Biblioteka() {
 void Biblioteka::freeMemory() {
 	for (count_type i = 0; i < book_count; i++) {
 		delete books[i];
+		books[i] = nullptr;
 	}
 	delete[] books;
+	books = nullptr;
 }
 
 const Knjiga* Biblioteka::getBookById(Knjiga::id_type id) const {
