@@ -3,7 +3,7 @@
 
 Cvecara& Cvecara::operator=(Cvecara const& other) {
 	if (this != &other) {
-		NodePointer newBouquets = other.copyBouquets();
+		NodePtr newBouquets = other.copyBouquets();
 		freeBouquets();
 		totalEarned = other.totalEarned;
 		bouquets = newBouquets;
@@ -20,11 +20,11 @@ Cvecara& Cvecara::operator=(Cvecara&& other) noexcept {
 	return *this;
 }
 
-Cvecara::NodePointer Cvecara::copyBouquets() const {
-	NodePointer tmp = bouquets;
-	NodePointer head = nullptr, tail = nullptr;
+Cvecara::NodePtr Cvecara::copyBouquets() const {
+	NodePtr tmp = bouquets;
+	NodePtr head = nullptr, tail = nullptr;
 	while (tmp != nullptr) {
-		NodePointer newNode = new Node(tmp->bouquet);
+		NodePtr newNode = new Node(tmp->bouquet);
 		tail = (head == nullptr ? head : tail->next) = newNode;
 		tmp = tmp->next;
 	}
@@ -41,14 +41,14 @@ void Cvecara::freeBouquets() {
 bool Cvecara::addBouquet(Buket const& bouquet) {
 	double percent = bouquet.getEarnings() * 100.0 / bouquet.getSellPrice();
 	if (percent >= 20) {
-		NodePointer node = new Node(bouquet);
+		NodePtr node = new Node(bouquet);
 		this->totalEarned -= bouquet.getBuyPrice();
 		if (bouquets == nullptr ||
 			bouquets->bouquet.getSellPrice() > node->bouquet.getSellPrice()) {
 			node->next = std::exchange(bouquets, node);
 		}
 		else {
-			NodePointer tmp = bouquets;
+			NodePtr tmp = bouquets;
 			while (tmp->next != nullptr &&
 				tmp->next->bouquet.getSellPrice() <= node->bouquet.getSellPrice()) {
 				tmp = tmp->next;
@@ -62,7 +62,7 @@ bool Cvecara::addBouquet(Buket const& bouquet) {
 bool Cvecara::sellBouquet(int index) {
 	bool wasDeleted = false;
 	if (index >= 0 && bouquets != nullptr) {
-		NodePointer prev = nullptr, tmp = bouquets;
+		NodePtr prev = nullptr, tmp = bouquets;
 		while (tmp != nullptr && index > 0) {
 			prev = std::exchange(tmp, tmp->next);
 			--index;
@@ -84,7 +84,7 @@ bool Cvecara::sellBouquet(int index) {
 
 std::ostream& operator<<(std::ostream& os, Cvecara const& cvecara) {
 	os << "zarada=" << cvecara.totalEarned << "RSD\n";
-	Cvecara::NodePointer tmp = cvecara.bouquets;
+	Cvecara::NodePtr tmp = cvecara.bouquets;
 	while (tmp != nullptr) {
 		os << tmp->bouquet << '\n';
 		tmp = tmp->next;

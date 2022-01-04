@@ -141,12 +141,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="OO1Domaci3V1.cpp" />
+    <ClCompile Include="Timepoint.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EMail.h" />
+    <ClInclude Include="EMailWithText.h" />
     <ClInclude Include="Helpers.h" />
     <ClInclude Include="List.h" />
-    <ClInclude Include="ListExceptions.h" />
-    <ClInclude Include="ListIterators.h" />
+    <ClInclude Include="Exceptions.h" />
+    <ClInclude Include="Timepoint.h" />
+    <ClInclude Include="User.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

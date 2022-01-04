@@ -1,22 +1,14 @@
 #include <iostream>
+#include <string>
 #include "List.h"
+#include "EMailWithText.h"
+#include "Helpers.h"
 
-struct dummy {
-	int i;
-public:
-	dummy(int i) : i(i) {}
-	
-	friend std::ostream& operator<<(std::ostream& os, dummy const& d) {
-		return os << "D{" << d.i << '}';
-	}
-};
-
-int main()
-{
-	List<dummy> list;
-	list.append({ 1 }).append({ 2 });
-	for (auto li = list.getIterator(); li.isValid(); ++li) {
-		std::cout << *li << ' ';
-	}
-	std::cout << std::endl;
+int main() {
+	using ndb::User, ndb::EMailWithText, ndb::EMailState;
+	User u1("Steven", "steven.strange@gmail.com");
+	User u2("Tony", "tony.start@outlook.com");
+	EMailWithText mail(u1, u2, "The Dusting");
+	mail.set_text("Hello Tony!");
+	std::cout << mail << '\n' << ndb::ssep;
 }

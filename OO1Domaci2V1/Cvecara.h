@@ -11,7 +11,7 @@ private:
 		Node(Buket const& bouquet) :
 			bouquet(bouquet) {};
 	};
-	using NodePointer = Node*;
+	using NodePtr = Node*;
 public:
 	Cvecara() = default;
 	Cvecara(Cvecara const& rhs) :
@@ -31,8 +31,8 @@ public:
 	bool sellBouquet(int index);
 	friend std::ostream& operator<<(std::ostream& os, Cvecara const& cvecara);
 private:
-	NodePointer copyBouquets() const;
+	NodePtr copyBouquets() const;
 	void freeBouquets();
 	int totalEarned = 1000;
-	NodePointer bouquets = nullptr;
+	NodePtr bouquets = nullptr;
 };

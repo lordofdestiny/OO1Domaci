@@ -18,18 +18,30 @@
     <ClCompile Include="OO1Domaci3V1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Timepoint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="List.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ListExceptions.h">
+    <ClInclude Include="Exceptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Helpers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ListIterators.h">
+    <ClInclude Include="User.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Timepoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EMail.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EMailWithText.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

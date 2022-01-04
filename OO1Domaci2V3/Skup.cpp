@@ -2,8 +2,8 @@
 #include <utility>
 
 Skup::Skup(std::string const& str) {
-	for (auto& c : str) {
-		insertChar(c);
+	for (auto& sep : str) {
+		insertChar(sep);
 	}
 }
 
@@ -14,10 +14,10 @@ Skup& Skup::operator=(Skup&& rhs) noexcept {
 	return *this;
 }
 
-Skup::NodePointer Skup::findChar(char c) const {
-	NodePointer tmp = data;
+Skup::NodePtr Skup::findChar(char sep) const {
+	NodePtr tmp = data;
 	while (tmp != nullptr) {
-		if (tmp->c == c) {
+		if (tmp->sep == sep) {
 			break;
 		}
 		tmp = tmp->next;
@@ -25,18 +25,18 @@ Skup::NodePointer Skup::findChar(char c) const {
 	return tmp;
 }
 
-bool Skup::insertChar(char c) {
-	NodePointer node = new Node(c);
+bool Skup::insertChar(char sep) {
+	NodePtr node = new Node(sep);
 	bool inserted = true;
-	if (data == nullptr || data->c > c) {
+	if (data == nullptr || data->sep > sep) {
 		node->next = std::exchange(data, node);
 	}
 	else {
-		NodePointer tmp = data;
-		while (tmp->next != nullptr && tmp->next->c <= c) {
+		NodePtr tmp = data;
+		while (tmp->next != nullptr && tmp->next->sep <= sep) {
 			tmp = tmp->next;
 		}
-		if (tmp->c != c) {
+		if (tmp->sep != sep) {
 			node->next = tmp->next;
 			tmp->next = node;
 		}
@@ -48,7 +48,7 @@ bool Skup::insertChar(char c) {
 }
 
 void Skup::freeChars() {
-	NodePointer tmp = data;
+	NodePtr tmp = data;
 	while (tmp != nullptr) {
 		delete std::exchange(tmp, tmp->next);
 	}

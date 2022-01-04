@@ -1,133 +1,220 @@
 #pragma once
-#include "ListExceptions.h"
-#include "ListIterators.h"
+#include "Exceptions.h"
+#include <iostream>
+#include <functional>
 
-template<class T>
-class List {
-public:
-	using value_type = T;
-	using reference = T&;
-	using const_reference = const T&;
-	using iterator = ListIterator<typename List<T>>;
-	using const_iterator = ConstListIterator<typename List<T>>;
-	friend class iterator;
-	friend class const_iterator;
-	struct Node
-	{
-		value_type data;
-		Node* next;
-		Node(const_reference data, Node* next = nullptr) :
-			data(data), next(next) {}
+namespace ndb {
+	template<class T>
+	class List {
+	public:
+		using value_type = T;
+		using reference = T&;
+		using const_reference = const T&;
+		struct Node {
+			value_type data;
+			Node* next = nullptr;
+		};
+		using NodePtr = Node*;
+	private:
+		NodePtr _head = nullptr, _tail = nullptr;
+		mutable NodePtr _curr = nullptr, _prev = nullptr;
+		std::size_t _size = 0;
+	public:
+		List() = default;
+		List(List const& other) {
+			copy_list(other);
+		}
+
+		List(List&& other) noexcept {
+			move_list(other);
+		}
+
+		List& operator=(List const& rhs) {
+			if (this != &rhs) {
+				delete_list();
+				copy_list(rhs);
+				_curr = _prev = nullptr;
+			}
+			return *this;
+		}
+
+		List& operator=(List&& rhs) noexcept {
+			if (this != &rhs) {
+				delete_list();
+				move_list(rhs);
+				_curr = _prev = nullptr;
+			}
+			return *this;
+		}
+
+		~List() {
+			delete_list();
+		}
+
+		bool empty() const {
+			return _head == nullptr;
+		}
+
+		std::size_t size() const {
+			return _size;
+		}
+
+		List& push_back(const_reference value) {
+			_prev = _tail;
+			_curr = _tail = (_head == nullptr ? _head : _tail->next) = new Node{ value };
+			++_size;
+			return *this;
+		}
+
+		List& push_front(const_reference value) {
+			_head = new Node{ value, _head };
+			if (_head->next == nullptr) {
+				_tail = _head;
+			}
+			_prev = nullptr;
+			_curr = _head;
+			++_size;
+			return *this;
+		}
+
+		List& to_begin() {
+			return const_cast<List&>(const_cast<const List&>(*this).to_begin());
+		}
+
+		const List& to_begin() const {
+			_curr = _head;
+			_prev = nullptr;
+			return *this;
+		}
+
+		List& seek_next() {
+			return const_cast<List&>(const_cast<const List&>(*this).seek_next());
+		}
+
+		const List& seek_next() const {
+			if (_curr != nullptr) {
+				_prev = std::exchange(_curr, _curr->next);
+			}
+			return *this;
+		}
+
+		bool has_next() const {
+			return _curr->next != nullptr;
+		}
+
+		bool is_valid() const {
+			return _curr != nullptr;
+		}
+
+		reference get_current() {
+			return const_cast<reference>(const_cast<List const&>(*this).get_current());
+		}
+
+		const_reference get_current() const {
+			if (_curr == nullptr) throw ListIteratorOutOfRange();
+			return _curr->data;
+		}
+
+		List& insert_before_current(const_reference value) {
+			if (_curr == nullptr) {
+				return this->push_back(value);
+			}
+			if (_curr == _head) {
+				return this->push_front(value);
+			}
+			_curr = _prev->next = new Node{ value, _prev->next };
+			++_size;
+			return *this;
+		}
+
+		List& insert_after_current(const_reference value) {
+			if (_curr == nullptr) throw ListIteratorOutOfRange();
+			if (_curr == _head) {
+				return this->push_back(value);
+			}
+			_curr->next = new Node{ value, _curr->next };
+			_prev = std::exchange(_curr, _curr->next);
+			if (_prev == _tail) {
+				_tail = _curr;
+			}
+			++_size;
+			return *this;
+		}
+
+		bool seek_from_current(std::function<bool(const_reference)> const& f) const {
+			if (_curr == nullptr) throw ListIteratorOutOfRange();
+			NodePtr prev = _prev, curr = _curr;
+
+			bool found = false;
+			while (is_valid() && !found) {
+				if (!(found = f(get_current()))) {
+					seek_next();
+				}
+			}
+
+			if (!found || !is_valid()) {
+				_prev = prev;
+				_curr = curr;
+			}
+
+			return found;
+		}
+
+		List& remove_current() {
+			if (_curr == nullptr) throw ListIteratorOutOfRange();
+			NodePtr to_free = _curr;
+			_curr = (_curr == _head ? _head : _prev->next) = _curr->next;
+			if (_curr == nullptr) _tail = _prev;
+			delete to_free;
+			--size;
+			return *this;
+		}
+
+
+		friend std::ostream& print_list(List const& list, bool from_current = true,
+			bool new_line = true, std::ostream& os = std::cout) {
+			NodePtr prev = list._prev, curr = list._curr;
+			if (!from_current) {
+				list.to_begin();
+			}
+			while (list.is_valid()) {
+				os << list.get_current() << ' ';
+				list.seek_next();
+			}
+			if (new_line) {
+				os << '\n';
+			}
+			list._prev = prev;
+			list._curr = curr;
+			return os;
+		}
+
+		friend std::ostream& operator<<(std::ostream& os, List const& list) {
+			return print_list(list, false, false);
+		}
+	private:
+		void copy_list(List const& other) {
+			NodePtr temp = other._head;
+			NodePtr head = nullptr, tail = nullptr;
+			while (temp != nullptr) {
+				tail = (tail == nullptr ? head : tail->next) = new Node{ *temp };
+				temp = temp->next;
+			}
+			_head = head;
+			_tail = tail;
+			_size = other._size;
+		}
+		void move_list(List& other) noexcept {
+			_head = std::exchange(other._head, nullptr);
+			_tail = std::exchange(other._tail, nullptr);
+			_size = std::exchange(other._size, 0);
+		}
+		void delete_list() {
+			while (_head != nullptr) {
+				delete std::exchange(_head, _head->next);
+			}
+			_tail = nullptr;
+			_size = 0;
+		}
 	};
-	using NodePointer = Node*;
-private:
-	NodePointer _begin = nullptr;
-	NodePointer _end = nullptr;
-	std::size_t _size = 0;
-public:
-	List() = default;
-	List(List const& other) :
-		_begin(List::copy_list(other)),
-		_end(find_end(_begin)),
-		_size(other._size) {}
-
-	List(List&& other) noexcept :
-		_begin(std::exchange(other._begin, nullptr)),
-		_end(std::exchange(other._end, nullptr)),
-		_size(std::exchange(other._size,0)) {}
-
-	List& operator=(List const& rhs) {
-		if (this != &rhs) {
-			auto newData = copy_list(rhs);
-
-			delete_list();
-
-			_begin = newData;
-			_end = find_end(_begin);
-			_size = rhs._size;
-		}
-		return *this;
-	}
-
-	List& operator=(List&& rhs) noexcept {
-		if (this != &rhs) {
-			delete_list();
-
-			_begin = std::exchange(rhs._begin,nullptr);
-			_end = std::exchange(rhs._end, nullptr);
-			_size = std::exchange(rhs._size, 0);
-		}
-		return *this;
-	}
-
-	~List() {
-		delete_list();
-	}
-
-	bool empty() const {
-		return _begin == nullptr;
-	}
-
-	std::size_t size() const {
-		return _size;
-	}
-
-	iterator getIterator() {
-		return iterator(*this);
-	}
-
-	const_iterator getIterator() const {
-		return const_iterator(*this);
-	}
-
-	const_iterator getConstIterator() const {
-		return const_iterator(*this);
-	}
-
-	List& append(const_reference value) {
-		NodePointer newNode = new Node(value);
-		if (_begin == nullptr) {
-			_begin = newNode;
-		}
-		else {
-			_end->next = newNode;
-		}
-		_end = newNode;
-		_size += 1;
-		return *this;
-	}
-private:
-	static NodePointer copy_list(List const& other) {
-		NodePointer temp = other._begin;
-		NodePointer start = nullptr;
-		NodePointer end = nullptr;
-		while (temp != nullptr) {
-			NodePointer copy = new Node(*temp);
-			if (start == nullptr) {
-				start = copy;
-			}
-			else {
-				end->next = copy;
-			}
-			end = copy;
-			temp = temp->next;
-		}
-		return start;
-	}
-	static NodePointer find_end(NodePointer begin) {
-		if (begin == nullptr) return nullptr;
-		if (begin->next == nullptr) return begin;
-		NodePointer prev = nullptr, tmp = begin;
-		while (tmp != nullptr) {
-			prev = std::exchange(tmp, tmp->next);
-		}
-		return prev;
-	}
-	void delete_list() {
-		while (_begin != nullptr) {
-			delete std::exchange(_begin, _begin->next);
-		}
-		_end = nullptr;
-		_size = 0;
-	}
-};
+}

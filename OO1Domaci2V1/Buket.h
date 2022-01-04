@@ -12,7 +12,7 @@ private:
 		Node(const Cvet& flower) :
 			flower(flower) {}
 	};
-	using NodePointer = Node*;
+	using NodePtr = Node*;
 public:
 	Buket() = default;
 	Buket(Buket const& rhs) :
@@ -54,9 +54,9 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& os, Buket const& bouquet);
 private:
-	NodePointer copyFlowers() const;
+	NodePtr copyFlowers() const;
 	void freeFlowers();
-	NodePointer flowers = nullptr;
+	NodePtr flowers = nullptr;
 	/* Cache values to optimize access */
 	int buyPriceCache = 0;
 	int sellPriceCache = 0;

@@ -4,11 +4,11 @@
 class Skup
 {
 	struct Node {
-		char c;
+		char sep;
 		Node* next = nullptr;
-		Node(char c) : c(c) {};
+		Node(char sep) : sep(sep) {};
 	};
-	using NodePointer = Node*;
+	using NodePtr = Node*;
 public:
 	Skup() = default;
 	Skup(std::string const&);
@@ -21,19 +21,19 @@ public:
 	Skup& operator=(Skup const&) = delete;
 	Skup& operator=(Skup&&) noexcept;
 
-	Skup& operator+=(char c) {
-		insertChar(c);
+	Skup& operator+=(char sep) {
+		insertChar(sep);
 		return *this;
 	}
 
-	bool operator()(char c) const {
-		return findChar(c) != nullptr;
+	bool operator()(char sep) const {
+		return findChar(sep) != nullptr;
 	}
 private:
-	NodePointer findChar(char) const;
+	NodePtr findChar(char) const;
 	bool insertChar(char);
 	void freeChars();
 
-	NodePointer data = nullptr;
+	NodePtr data = nullptr;
 };
 

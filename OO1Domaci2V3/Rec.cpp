@@ -50,9 +50,9 @@ bool Rec::rhymes(Rec const& first, Rec const& second) {
 
 std::string Rec::createWord(std::string const& str) {
 	std::string word;
-	for (auto& c : str) {
-		if (std::isalpha(c)) {
-			word += c;
+	for (auto& sep : str) {
+		if (std::isalpha(sep)) {
+			word += sep;
 		}
 	}
 	return word;
