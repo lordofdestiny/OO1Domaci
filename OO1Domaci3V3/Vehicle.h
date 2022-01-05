@@ -8,7 +8,7 @@ namespace ndb {
 		static inline double _price_per_unit = 0.1;
 		static inline double _get_starting_price = 120;
 	public:
-		Vehicle(std::string model_name) :
+		Vehicle(std::string const& model_name) :
 			_model(model_name) {}
 		double get_transport_price(Path const& path) {
 			return get_starting_price() + path.get_length() * _price_per_unit;

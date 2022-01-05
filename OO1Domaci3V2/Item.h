@@ -8,7 +8,7 @@ namespace ndb {
 		unsigned long long _barcode;
 		double _pprice;
 	public:
-		Item(std::string name, unsigned long long barcode, double price) :
+		Item(std::string const& name, unsigned long long barcode, double price) :
 			_name(name), _barcode(barcode), _pprice(price) {}
 
 		std::string const& get_name() const {

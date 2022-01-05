@@ -11,7 +11,7 @@ namespace ndb {
 		mutable EMailState _state;
 		std::string _title;
 	public:
-		EMail(User& sender, User& receiver, std::string title) :
+		EMail(User& sender, User& receiver, std::string const& title) :
 			_sender(&sender), _receiver(&receiver),
 			_title(title), _state(EMailState::U_PRIPREMI) {}
 
