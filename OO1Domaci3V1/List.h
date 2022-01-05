@@ -98,10 +98,6 @@ namespace ndb {
 			return *this;
 		}
 
-		bool has_next() const {
-			return _curr->next != nullptr;
-		}
-
 		bool is_valid() const {
 			return _curr != nullptr;
 		}
@@ -111,11 +107,11 @@ namespace ndb {
 		}
 
 		const_reference get_current() const {
-			if (_curr == nullptr) throw ListIteratorOutOfRange();
+			if (_curr == nullptr) throw EListIndexOutOfRange();
 			return _curr->data;
 		}
 
-		List& insert_before_current(const_reference value) {
+		/*List& insert_before_current(const_reference value) {
 			if (_curr == nullptr) {
 				return this->push_back(value);
 			}
@@ -125,10 +121,10 @@ namespace ndb {
 			_curr = _prev->next = new Node{ value, _prev->next };
 			++_size;
 			return *this;
-		}
+		}*/
 
-		List& insert_after_current(const_reference value) {
-			if (_curr == nullptr) throw ListIteratorOutOfRange();
+		/*List& insert_after_current(const_reference value) {
+			if (_curr == nullptr) throw ListIndexOutOfRange();
 			if (_curr == _head) {
 				return this->push_back(value);
 			}
@@ -139,10 +135,10 @@ namespace ndb {
 			}
 			++_size;
 			return *this;
-		}
+		}*/
 
-		bool seek_from_current(std::function<bool(const_reference)> const& f) const {
-			if (_curr == nullptr) throw ListIteratorOutOfRange();
+		/*bool seek_from_current(std::function<bool(const_reference)> const& f) const {
+			if (_curr == nullptr) throw ListIndexOutOfRange();
 			NodePtr prev = _prev, curr = _curr;
 
 			bool found = false;
@@ -158,20 +154,20 @@ namespace ndb {
 			}
 
 			return found;
-		}
+		}*/
 
 		List& remove_current() {
-			if (_curr == nullptr) throw ListIteratorOutOfRange();
+			if (_curr == nullptr) throw EListIndexOutOfRange();
 			NodePtr to_free = _curr;
 			_curr = (_curr == _head ? _head : _prev->next) = _curr->next;
 			if (_curr == nullptr) _tail = _prev;
 			delete to_free;
-			--size;
+			--_size;
 			return *this;
 		}
 
 
-		friend std::ostream& print_list(List const& list, bool from_current = true,
+		friend std::ostream& print(List const& list, bool from_current = true,
 			bool new_line = true, std::ostream& os = std::cout) {
 			NodePtr prev = list._prev, curr = list._curr;
 			if (!from_current) {
@@ -190,7 +186,7 @@ namespace ndb {
 		}
 
 		friend std::ostream& operator<<(std::ostream& os, List const& list) {
-			return print_list(list, false, false);
+			return print(list, false, false);
 		}
 	private:
 		void copy_list(List const& other) {
