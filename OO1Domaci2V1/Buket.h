@@ -27,9 +27,6 @@ public:
 		earningsCache(std::exchange(rhs.earningsCache, 0)) {}
 	~Buket() {
 		freeFlowers();
-		buyPriceCache = 0;
-		sellPriceCache = 0;
-		earningsCache = 0;
 	}
 
 	Buket& operator=(Buket const&);
@@ -56,10 +53,11 @@ public:
 private:
 	NodePtr copyFlowers() const;
 	void freeFlowers();
-	NodePtr flowers = nullptr;
 	/* Cache values to optimize access */
+	NodePtr flowers = nullptr;
 	int buyPriceCache = 0;
 	int sellPriceCache = 0;
 	int earningsCache = 0;
+	char c[4]{};
 };
 

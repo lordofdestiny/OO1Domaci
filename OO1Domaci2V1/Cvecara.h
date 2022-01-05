@@ -15,11 +15,11 @@ private:
 public:
 	Cvecara() = default;
 	Cvecara(Cvecara const& rhs) :
-		totalEarned(rhs.totalEarned),
-		bouquets(rhs.copyBouquets()) {}
+		bouquets(rhs.copyBouquets()),
+		totalEarned(rhs.totalEarned) {}
 	Cvecara(Cvecara&& rhs) noexcept :
-		totalEarned(std::exchange(rhs.totalEarned, 0)),
-		bouquets(std::exchange(rhs.bouquets, nullptr)) {};
+		bouquets(std::exchange(rhs.bouquets, nullptr)),
+		totalEarned(std::exchange(rhs.totalEarned, 0)) {};
 	~Cvecara() {
 		freeBouquets();
 	}
@@ -33,6 +33,7 @@ public:
 private:
 	NodePtr copyBouquets() const;
 	void freeBouquets();
-	int totalEarned = 1000;
 	NodePtr bouquets = nullptr;
+	int totalEarned = 1000;
+	char c[4]{};
 };

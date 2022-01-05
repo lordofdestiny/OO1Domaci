@@ -1,7 +1,7 @@
 #include "Cvecara.h"
 #include <iostream>
 
-Cvecara& Cvecara::operator=(Cvecara const& other) {
+Cvecara &Cvecara::operator=(Cvecara const &other) {
 	if (this != &other) {
 		NodePtr newBouquets = other.copyBouquets();
 		freeBouquets();
@@ -11,7 +11,7 @@ Cvecara& Cvecara::operator=(Cvecara const& other) {
 	return *this;
 }
 
-Cvecara& Cvecara::operator=(Cvecara&& other) noexcept {
+Cvecara &Cvecara::operator=(Cvecara &&other) noexcept {
 	if (this != &other) {
 		freeBouquets();
 		totalEarned = std::exchange(other.totalEarned, 0);
@@ -38,25 +38,26 @@ void Cvecara::freeBouquets() {
 	bouquets = nullptr;
 }
 
-bool Cvecara::addBouquet(Buket const& bouquet) {
+bool Cvecara::addBouquet(Buket const &bouquet) {
 	double percent = bouquet.getEarnings() * 100.0 / bouquet.getSellPrice();
-	if (percent >= 20) {
-		NodePtr node = new Node(bouquet);
-		this->totalEarned -= bouquet.getBuyPrice();
-		if (bouquets == nullptr ||
-			bouquets->bouquet.getSellPrice() > node->bouquet.getSellPrice()) {
-			node->next = std::exchange(bouquets, node);
-		}
-		else {
-			NodePtr tmp = bouquets;
-			while (tmp->next != nullptr &&
-				tmp->next->bouquet.getSellPrice() <= node->bouquet.getSellPrice()) {
-				tmp = tmp->next;
-			}
-			node->next = std::exchange(tmp->next, node);
-		}
+	if (percent < 20) return false;
+
+	NodePtr node = new Node(bouquet);
+	this->totalEarned -= bouquet.getBuyPrice();
+	if (bouquets == nullptr ||
+		bouquets->bouquet.getSellPrice() > node->bouquet.getSellPrice()) {
+		node->next = std::exchange(bouquets, node);
 	}
-	return percent >= 20;
+	else {
+		NodePtr tmp = bouquets;
+		while (tmp->next != nullptr &&
+			tmp->next->bouquet.getSellPrice() <= node->bouquet.getSellPrice()) {
+			tmp = tmp->next;
+		}
+		node->next = std::exchange(tmp->next, node);
+	}
+
+	return true;
 }
 
 bool Cvecara::sellBouquet(int index) {
@@ -82,7 +83,7 @@ bool Cvecara::sellBouquet(int index) {
 	return wasDeleted;
 }
 
-std::ostream& operator<<(std::ostream& os, Cvecara const& cvecara) {
+std::ostream &operator<<(std::ostream &os, Cvecara const &cvecara) {
 	os << "zarada=" << cvecara.totalEarned << "RSD\n";
 	Cvecara::NodePtr tmp = cvecara.bouquets;
 	while (tmp != nullptr) {
