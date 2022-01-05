@@ -24,4 +24,9 @@ namespace ndb {
 		EVendorItemMissing() :
 			std::runtime_error("This vendor does not have the requested item!") {}
 	};
+
+	struct EInvalidMargin : std::runtime_error {
+		EInvalidMargin() :
+			std::runtime_error("Margin must be posivive") {}
+	};
 }

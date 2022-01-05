@@ -5,7 +5,7 @@ namespace ndb {
 		auto& shipment_details = get_shipment_details(shipment);
 		auto const& [item, margin, delivery_time] = find_item(shipment.get_item());
 		shipment_details.shipping_time += delivery_time;
-		shipment_details.sprice += item.get_price() + margin;
+		shipment_details.sprice += item.get_price() * (1+margin);
 	}
 
 	Vendor::CatalogueItem const& Vendor::find_item(Item const& item) const {

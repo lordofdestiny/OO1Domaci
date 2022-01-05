@@ -16,6 +16,7 @@ namespace ndb {
 		Vendor(std::string name) : _name(name) {}
 
 		void expand_catalogue(Item const& item, double margin, short delivery_time) {
+			if (margin <= 0) throw EInvalidMargin();
 			_catalogue += {item, margin, delivery_time};
 		}
 
