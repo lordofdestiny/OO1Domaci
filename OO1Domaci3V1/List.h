@@ -10,12 +10,12 @@ namespace ndb {
 		using value_type = T;
 		using reference = T&;
 		using const_reference = const T&;
+	private:
 		struct Node {
 			value_type data;
 			Node* next = nullptr;
 		};
 		using NodePtr = Node*;
-	private:
 		NodePtr _head = nullptr, _tail = nullptr;
 		mutable NodePtr _curr = nullptr, _prev = nullptr;
 		std::size_t _size = 0;
