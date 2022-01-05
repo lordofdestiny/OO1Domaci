@@ -29,7 +29,7 @@ namespace ndb {
 
 		List& operator=(List const& rhs) {
 			if (this != &rhs) {
-				delete_list();
+				free_list();
 				copy_list(rhs);
 			}
 			return *this;
@@ -37,14 +37,14 @@ namespace ndb {
 
 		List& operator=(List&& rhs) noexcept {
 			if (this != &rhs) {
-				delete_list();
+				free_list();
 				move_list(rhs);
 			}
 			return *this;
 		}
 
 		~List() {
-			delete_list();
+			free_list();
 		}
 
 		bool empty() const {
@@ -87,10 +87,10 @@ namespace ndb {
 			if (curr == nullptr || index < 0) {
 				throw EListIndexOutOfRange();
 			}
-			NodePtr to_free = curr;
+			NodePtr to_delete = curr;
 			curr = (curr == _head ? _head : prev->next) = curr->next;
 			if (curr == nullptr) _tail = prev;
-			delete to_free;
+			delete to_delete;
 			--_size;
 			return *this;
 		}
@@ -98,12 +98,11 @@ namespace ndb {
 		std::ostream& print(bool new_line = true, std::ostream& os = std::cout) {
 			if (_size == 0) return std::cout << "[empty]";
 			NodePtr temp = _head;
-			while ( temp != nullptr) {
+			while (temp != nullptr) {
 				os << temp->data << ' ';
 				temp = temp->next;
 			}
-			if (new_line) os << '\n';
-			return os;
+			return new_line ? os << '\n' : os;
 		}
 
 		friend std::ostream& operator<<(std::ostream& os, List const& list) {
@@ -126,7 +125,7 @@ namespace ndb {
 			_tail = std::exchange(other._tail, nullptr);
 			_size = std::exchange(other._size, 0);
 		}
-		void delete_list() {
+		void free_list() {
 			while (_head != nullptr) {
 				delete std::exchange(_head, _head->next);
 			}

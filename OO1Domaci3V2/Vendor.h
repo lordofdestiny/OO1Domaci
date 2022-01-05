@@ -5,7 +5,6 @@
 
 namespace ndb {
 	class Vendor : public ShipmentHandler {
-		friend class Shipment;
 		struct CatalogueItem {
 			Item item;
 			double margin;
@@ -24,21 +23,9 @@ namespace ndb {
 			return _name;
 		}
 	protected:
-		void process_shipment(Shipment& shipment) const override {
-			auto& shipment_details = get_shipment_details(shipment);
-			auto const& [item, margin, delivery_time] = find_item(shipment.get_item());
-			shipment_details.shipping_time += delivery_time;
-			shipment_details.sprice += item.get_price() + margin;
-		}
+		void process_shipment(Shipment const& shipment) const override;
 	private:
-		CatalogueItem const& find_item(Item const& item) const {
-			for (std::size_t i = 0; i < _catalogue.size(); i++) {
-				if (item == _catalogue[i].item) {
-					return _catalogue[i];
-				}
-			}
-			throw EVendorItemMissing();
-		}
+		CatalogueItem const& find_item(Item const& item) const;
 	};
 }
 

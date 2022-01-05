@@ -14,7 +14,7 @@ namespace ndb {
 		return *this;
 	}
 
-	void Shipment::calculate_details() {
+	void Shipment::calculate_details() const {
 		for (std::size_t i = 0; i < _handlers.size(); ++i) {
 			_handlers[i]->process_shipment(*this);
 		}

@@ -17,8 +17,8 @@ namespace ndb {
 		static inline id_type _next_id = 0;
 		id_type _id = _next_id++;
 		Item _item;
-		bool _details_calculated = false;
-		ShipmentDetails _details{ 0, 0 };
+		mutable bool _details_calculated = false;
+		mutable ShipmentDetails _details{ 0, 0 };
 		List<ShipmentHandler*> _handlers{};
 	public:
 		Shipment(Item const& item) :
@@ -33,7 +33,7 @@ namespace ndb {
 
 		Shipment& operator+=(ShipmentHandler& handler);
 
-		void calculate_details();
+		void calculate_details() const;
 
 		Item const& get_item() const { return _item; }
 
