@@ -23,13 +23,16 @@ namespace ndb {
 	public:
 		Shipment(Item const& item) :
 			_item(item) {}
+
 		Shipment(Shipment const& other) :
 			_item(other._item),
 			_handlers(other._handlers) {}
-		Shipment(Shipment&& other) = delete;
+		Shipment(Shipment&& other) noexcept :
+			_id(other._id),
+			_item(std::move(other._item)) {}
 
 		Shipment& operator=(Shipment const& rhs);
-		Shipment& operator=(Shipment&& rhs) = delete;
+		Shipment& operator=(Shipment&& rhs) noexcept;
 
 		Shipment& operator+=(ShipmentHandler& handler);
 
@@ -39,8 +42,8 @@ namespace ndb {
 
 		id_type get_id() const { return _id; }
 
-		friend std::ostream& operator<<(std::ostream& os, Shipment const& shimpemnt);
-		
 		ShipmentDetails const& get_details() const;
+
+		friend std::ostream& operator<<(std::ostream& os, Shipment const& shimpemnt);
 	};
 }
