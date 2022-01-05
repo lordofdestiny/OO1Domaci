@@ -2,9 +2,9 @@
 #include <stdexcept>
 
 namespace ndb {
-	struct ListIteratorOutOfRange : std::out_of_range {
-		ListIteratorOutOfRange() :
-			std::out_of_range("Cannot access elemets that are out of range of the list") {}
+	struct EListIndexOutOfRange : std::out_of_range {
+		EListIndexOutOfRange() :
+			std::out_of_range("Cannot access elements that are out of range of the list") {}
 	};
 
 	struct InvalidTimepoint : std::domain_error {
