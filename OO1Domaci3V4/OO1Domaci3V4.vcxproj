@@ -141,7 +141,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Match.cpp" />
     <ClCompile Include="OO1Domaci3V4.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PrivilegedTeam.cpp" />
+    <ClCompile Include="Team.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Exceptions.h" />
+    <ClInclude Include="Match.h" />
+    <ClInclude Include="Pair.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PrivilegedTeam.h" />
+    <ClInclude Include="Team.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
