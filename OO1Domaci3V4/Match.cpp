@@ -15,7 +15,7 @@ namespace ndb {
 		auto v_guess = _teams.get_second()->value();
 
 		if (v_host < v_guess) {
-			_outcome = MatchOutcome::WIN_GUESS;
+			_outcome = MatchOutcome::WIN_GUEST;
 		}
 		else if (v_host > v_guess) {
 			_outcome = MatchOutcome::WIN_HOST;
@@ -48,7 +48,7 @@ namespace ndb {
 		if (_outcome == MatchOutcome::WIN_HOST) {
 			return { new int{3},new int{0} };
 		}
-		else if (_outcome == MatchOutcome::WIN_GUESS) {
+		else if (_outcome == MatchOutcome::WIN_GUEST) {
 			return { new int{0}, new int{3} };
 		}
 		else { //_outcome == MatchOutcome::DRAW
@@ -97,8 +97,8 @@ namespace ndb {
 		else if (outcome == Outcome::DRAW) {
 			return os << "Draw";
 		}
-		else if (outcome == Outcome::WIN_GUESS) {
-			return os <<"Guess Won";
+		else if (outcome == Outcome::WIN_GUEST) {
+			return os <<"Guest Won";
 		}
 		else {
 			return os <<"Unknown";

@@ -5,7 +5,7 @@
 namespace ndb {
 	class Match {
 	public:
-		enum class MatchOutcome { UNKNOWN, WIN_HOST, DRAW, WIN_GUESS };
+		enum class MatchOutcome { UNKNOWN, WIN_HOST, DRAW, WIN_GUEST };
 		friend std::ostream& operator<<(std::ostream& os, MatchOutcome const& outcome);
 	private:
 		Pair<Team, Team> _teams;
