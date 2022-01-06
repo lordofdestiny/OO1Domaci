@@ -1,6 +1,6 @@
 #pragma once
 #include <ostream>
-#include "User.h";
+#include "User.h"
 
 namespace ndb {
 	enum class EMailState { IN_PREPARATION, SENT, RECEIVED };
