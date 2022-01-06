@@ -3,7 +3,7 @@
 #include "User.h";
 
 namespace ndb {
-	enum class EMailState { U_PRIPREMI, POSLATA, PRIMLJENA };
+	enum class EMailState { IN_PREPARATION, SENT, RECEIVED };
 
 	class EMail {
 	protected:
@@ -13,7 +13,7 @@ namespace ndb {
 	public:
 		EMail(User& sender, User& receiver, std::string const& title) :
 			_sender(&sender), _receiver(&receiver),
-			_title(title), _state(EMailState::U_PRIPREMI) {}
+			_title(title), _state(EMailState::IN_PREPARATION) {}
 
 		EMail(EMail const&) = default;
 		EMail(EMail&&) = default;

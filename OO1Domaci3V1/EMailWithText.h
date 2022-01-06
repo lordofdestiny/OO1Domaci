@@ -16,7 +16,7 @@ namespace ndb {
 		}
 
 		virtual void send_mail() const override {
-			_state = EMailState::POSLATA;
+			_state = EMailState::SENT;
 		}
 
 		virtual EMailWithText* copy() const override {
