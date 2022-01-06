@@ -22,6 +22,7 @@ public:
 		if (this != &other) {
 			word = std::move(other.word);
 		}
+		return *this;
 	}
 
 	int operator+() const {

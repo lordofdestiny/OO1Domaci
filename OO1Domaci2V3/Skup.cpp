@@ -27,24 +27,20 @@ Skup::NodePtr Skup::findChar(char sep) const {
 
 bool Skup::insertChar(char sep) {
 	NodePtr node = new Node(sep);
-	bool inserted = true;
 	if (data == nullptr || data->sep > sep) {
 		node->next = std::exchange(data, node);
+		return true;
 	}
-	else {
-		NodePtr tmp = data;
-		while (tmp->next != nullptr && tmp->next->sep <= sep) {
-			tmp = tmp->next;
-		}
-		if (tmp->sep != sep) {
-			node->next = tmp->next;
-			tmp->next = node;
-		}
-		else {
-			inserted = false;
-		}
+	NodePtr tmp = data;
+	while (tmp->next != nullptr && tmp->next->sep <= sep) {
+		tmp = tmp->next;
 	}
-	return true;
+	if (tmp->sep != sep) {
+		node->next = tmp->next;
+		tmp->next = node;
+		return true;
+	}
+	return false;
 }
 
 void Skup::freeChars() {

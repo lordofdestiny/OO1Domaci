@@ -7,7 +7,7 @@ int Rec::countSyllables() const {
 		bool prevNotVocal = i == 0 || !vocals(word[i - 1]);
 		bool nextNotVocal = i == +*this - 1 || !vocals(word[i + 1]);
 
-		if (vocals(word[i]) || sonants(word[i]) && prevNotVocal && nextNotVocal) {
+		if (vocals(word[i]) || (sonants(word[i]) && prevNotVocal && nextNotVocal)) {
 			++count;
 		}
 	}
@@ -21,7 +21,7 @@ int Rec::getNthSyllableCarrier(int n) const {
 		bool prevNotVocal = i == 0 || !vocals(word[i - 1]);
 		bool nextNotVocal = i == +*this - 1 || !vocals(word[i + 1]);
 
-		if (vocals(word[i]) || sonants(word[i]) && prevNotVocal && nextNotVocal) {
+		if (vocals(word[i]) || (sonants(word[i]) && prevNotVocal && nextNotVocal)) {
 			++count;
 		}
 		if (count == resultCount) {
