@@ -7,7 +7,7 @@ namespace ndb {
 		std::string _name;
 		int _value;
 	public:
-		Player(std::string const& name, int value = 1050) :
+		Player(std::string const& name, int value = 1000) :
 			_name(name), _value(value) {}
 
 		int value() const;
