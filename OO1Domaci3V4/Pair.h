@@ -11,31 +11,25 @@ namespace ndb {
 		Pair(Type* ptr1, Type* ptr2) :
 			_first(ptr1), _second(ptr2) {}
 		Pair(Pair const& other) = default;
-		Pair(Pair&& other) noexcept:
+		Pair(Pair&& other) noexcept :
 			_first(std::exchange(other._first, nullptr)),
 			_second(std::exchange(other._second, nullptr)) {}
 
-		Type* get_first() {
-			return _first;
-		}
+		/* Returns first pointer of pair */
+		Type* get_first() { return _first; }
+		Type const* get_first() const { return _first; }
 
-		Type const* get_first() const {
-			return _first;
-		}
+		/* Returns second pointer of pair */
+		Type* get_second() { return _second; }
+		Type const* get_second() const { return _second; }
 
-		Type* get_second() {
-			return _second;
-		}
-
-		Type const* get_second() const {
-			return _second;
-		}
-
+		/* Sets first pointer of pair*/
 		Pair& set_first(Type* ptr) {
 			_first = ptr;
 			return *this;
 		}
 
+		/* Sets second pointer of pair */
 		Pair& set_second(Type* ptr) {
 			_second = ptr;
 			return *this;
@@ -50,16 +44,12 @@ namespace ndb {
 			if (pair._first != nullptr) {
 				os << *pair._first;
 			}
-			else {
-				os << "nullptr";
-			}
+			else os << "nullptr";
 			os << ", ";
 			if (pair._second != nullptr) {
 				os << *pair._second;
 			}
-			else {
-				os << "nullptr";
-			}
+			else os << "nullptr";
 			return os << ")";
 		}
 
@@ -67,6 +57,5 @@ namespace ndb {
 			std::swap(one._first, two._first);
 			std::swap(one._second, two._second);
 		}
-
 	};
 }
