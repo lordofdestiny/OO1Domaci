@@ -17,7 +17,7 @@ namespace ndb{
 			_sender = rhs._sender;
 			_receiver = rhs._receiver;
 			_title = rhs._title;
-			_state = EMailState::IN_PREPARATION;
+			_state = EMailState::PREPARING;
 		}
 		return *this;
 	};
@@ -36,7 +36,7 @@ namespace ndb{
 		return os << _title << '\n';
 		if (_sender == nullptr) os << "none";
 		else os << *_sender << '\n';
-		if (_receiver == nullptr) os << "nonde";
+		if (_receiver == nullptr) os << "none";
 		else os << *_receiver;
 		return os;
 	}

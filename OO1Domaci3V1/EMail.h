@@ -3,13 +3,13 @@
 #include "User.h"
 
 namespace ndb {
-	enum class EMailState { NONE, IN_PREPARATION, SENT, RECEIVED };
+	enum class EMailState { NONE, PREPARING, SENT, RECEIVED };
 
 	class EMail {
 	protected:
 		User* _sender, * _receiver;
 		std::string _title;
-		mutable EMailState _state = EMailState::IN_PREPARATION;
+		mutable EMailState _state = EMailState::PREPARING;
 	public:
 		EMail(User& sender, User& receiver, std::string const& title) :
 			_sender(&sender), _receiver(&receiver), _title(title) {}
