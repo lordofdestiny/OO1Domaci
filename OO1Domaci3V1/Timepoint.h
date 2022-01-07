@@ -15,8 +15,8 @@ namespace ndb {
 		}
 		friend std::ostream& operator<<(std::ostream& os, Timepoint const& timepoint);
 	public:
-		static const t_time min_year = 1950;
-		static const t_time max_year = 2100;
+		static inline const t_time min_year = 1950;
+		static inline const t_time max_year = 2100;
 	private:
 		static const inline t_time month_lengths[2][12] =
 		{
