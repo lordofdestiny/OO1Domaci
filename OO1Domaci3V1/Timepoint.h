@@ -5,30 +5,25 @@
 namespace ndb {
 	class Timepoint {
 	public:
-		using time_type = unsigned short;
+		using t_time = unsigned short;
 	private:
-		time_type _year, _month, _day, _hour, _minute;
+		t_time _year, _month, _day, _hour, _minute;
 	public:
-		Timepoint(time_type year, time_type month, time_type day,
-			time_type hour, time_type minute) :
-			_year(year), _month(month), _day(day),
-			_hour(hour), _minute(minute) {
+		Timepoint(t_time year, t_time month, t_time day, t_time hour, t_time minute) :
+			_year(year), _month(month), _day(day), _hour(hour), _minute(minute) {
 			validate();
 		}
-		friend std::ostream& operator<<(std::ostream& os, Timepoint const& timepoint) {
-			auto [y, M, d, h, m] = timepoint;
-			return os << y << '.' << M << '.' << d << '-' << h << ':' << m;
-		}
+		friend std::ostream& operator<<(std::ostream& os, Timepoint const& timepoint);
 	public:
-		static const time_type min_year = 1950;
-		static const time_type max_year = 2100;
+		static const t_time min_year = 1950;
+		static const t_time max_year = 2100;
 	private:
-		static const inline time_type month_lengths[2][12] =
+		static const inline t_time month_lengths[2][12] =
 		{
 			{31,28,31,30,31,30,31,31,30,31,30,31},
 			{31,29,31,30,31,30,31,31,30,31,30,31},
 		};
-		static bool is_leap_year(time_type year);
+		static bool is_leap_year(t_time year);
 		bool is_valid_timepoint();
 		void validate();
 	};

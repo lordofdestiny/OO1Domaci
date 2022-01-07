@@ -1,7 +1,7 @@
 #include "Timepoint.h"
 
 namespace ndb {
-	bool Timepoint::is_leap_year(time_type year) {
+	bool Timepoint::is_leap_year(t_time year) {
 		return (year % 100 != 0 && year % 4 == 0) || year % 400 == 0;
 	}
 
@@ -17,5 +17,10 @@ namespace ndb {
 		if (!is_valid_timepoint()) {
 			throw InvalidTimepoint();
 		}
+	}
+
+	std::ostream& operator<<(std::ostream& os, Timepoint const& timepoint) {
+		auto [Y, M, d, h, m] = timepoint;
+		return os << Y << '.' << M << '.' << d << '-' << h << ':' << m;
 	}
 }
