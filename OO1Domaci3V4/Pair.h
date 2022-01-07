@@ -3,40 +3,40 @@
 #include <utility>
 
 namespace ndb {
-	template<class Type1, class Type2>
+	template<class Type>
 	class Pair {
-		Type1* _first;
-		Type2* _second;
+		Type* _first;
+		Type* _second;
 	public:
-		Pair(Type1* ptr1, Type2* ptr2) :
+		Pair(Type* ptr1, Type* ptr2) :
 			_first(ptr1), _second(ptr2) {}
 		Pair(Pair const& other) = default;
 		Pair(Pair&& other) noexcept:
 			_first(std::exchange(other._first, nullptr)),
 			_second(std::exchange(other._second, nullptr)) {}
 
-		Type1* get_first() {
+		Type* get_first() {
 			return _first;
 		}
 
-		Type1 const* get_first() const {
+		Type const* get_first() const {
 			return _first;
 		}
 
-		Type2* get_second() {
+		Type* get_second() {
 			return _second;
 		}
 
-		Type2 const* get_second() const {
+		Type const* get_second() const {
 			return _second;
 		}
 
-		Pair& set_first(Type1* ptr) {
+		Pair& set_first(Type* ptr) {
 			_first = ptr;
 			return *this;
 		}
 
-		Pair& set_second(Type2* ptr) {
+		Pair& set_second(Type* ptr) {
 			_second = ptr;
 			return *this;
 		}

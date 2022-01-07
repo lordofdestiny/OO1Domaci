@@ -11,9 +11,11 @@ namespace ndb {
 
 	void Match::play_match() {
 		if (_outcome != MatchOutcome::UNKNOWN) 	return;
+		// Get values of both teams
 		auto v_host = _teams.get_first()->value();
 		auto v_guess = _teams.get_second()->value();
 
+		/* Determine the winner */
 		if (v_host < v_guess) {
 			_outcome = MatchOutcome::WIN_GUEST;
 		}
@@ -27,6 +29,8 @@ namespace ndb {
 		update_teams_values();
 	}
 
+	/* Increase values of the players in the winning team
+	 * Decarese values of members of the losing team */
 	void Match::update_teams_values() {
 		Team* winner = get_winner();
 		Team* loser = get_loser();
@@ -41,18 +45,17 @@ namespace ndb {
 		}
 	}
 
-	Pair<int, int> ndb::Match::get_points() const {
-		if (_outcome == MatchOutcome::UNKNOWN) {
-			throw EMatchNotPlayed();
-		}
-		if (_outcome == MatchOutcome::WIN_HOST) {
+	Pair<int> ndb::Match::get_points() const {
+		using Outcome = Match::MatchOutcome;
+		switch (_outcome) {
+		case Outcome::WIN_HOST:
 			return { new int{3},new int{0} };
-		}
-		else if (_outcome == MatchOutcome::WIN_GUEST) {
-			return { new int{0}, new int{3} };
-		}
-		else { //_outcome == MatchOutcome::DRAW
-			return { new int{1}, new int{1} };
+		case Outcome::DRAW:
+			return { new int{3},new int{0} };
+		case Outcome::WIN_GUEST:
+			return { new int{3},new int{0} };
+		default:
+			throw EMatchNotPlayed();
 		}
 	}
 
@@ -60,16 +63,15 @@ namespace ndb {
 		return _outcome != MatchOutcome::UNKNOWN;
 	}
 
-	Team* ndb::Match::get_winner() {
-		if (_outcome == MatchOutcome::UNKNOWN
-			|| _outcome == MatchOutcome::DRAW) {
-			return nullptr;
-		}
-		if (_outcome == MatchOutcome::WIN_HOST) {
+	Team* Match::get_winner() {
+		using Outcome = Match::MatchOutcome;
+		switch (_outcome) {
+		case Outcome::WIN_HOST:
 			return _teams.get_first();
-		}
-		else {
+		case Outcome::WIN_GUEST:
 			return _teams.get_second();
+		default:
+			return nullptr;
 		}
 	}
 
@@ -91,17 +93,15 @@ namespace ndb {
 
 	std::ostream& ndb::operator<<(std::ostream& os, Match::MatchOutcome const& outcome) {
 		using Outcome = Match::MatchOutcome;
-		if (outcome == Outcome::WIN_HOST) {
-			return os << "Host Won";
-		}
-		else if (outcome == Outcome::DRAW) {
+		switch (outcome) {
+		case Outcome::WIN_HOST:
+			return os << "Host won";
+		case Outcome::DRAW:
 			return os << "Draw";
-		}
-		else if (outcome == Outcome::WIN_GUEST) {
-			return os <<"Guest Won";
-		}
-		else {
-			return os <<"Unknown";
+		case Outcome::WIN_GUEST:
+			return os << "Guest won";
+		default:
+			return os << "Not played";
 		}
 	}
 }
