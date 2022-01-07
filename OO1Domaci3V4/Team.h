@@ -8,9 +8,7 @@ namespace ndb {
 		std::size_t _size{}, _max_size{};
 		Player** _players = nullptr;
 	public:
-		Team(std::string const& name, std::size_t size) :
-			_name(name), _size(0), _max_size(size),
-			_players(new Player* [_max_size] {}) {}
+		Team(std::string const& name, std::size_t size);
 		Team(Team const& other);
 		Team(Team&& other) noexcept;
 		Team& operator=(Team const& rhs);

@@ -4,6 +4,10 @@
 #include "Exceptions.h"
 
 namespace ndb {
+	Team::Team(std::string const& name, std::size_t size) :
+		_name(name), _size(0), _max_size(size),
+		_players(new Player* [_max_size] {}) {}
+
 	Team::Team(Team const& other) {
 		copy_from(other);
 	};
