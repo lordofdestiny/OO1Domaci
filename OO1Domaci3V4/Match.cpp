@@ -89,7 +89,7 @@ namespace ndb {
 		return os;
 	}
 
-	std::ostream& operator<<(std::ostream& os, Match::MatchOutcome const& outcome) {
+	std::ostream& ndb::operator<<(std::ostream& os, Match::MatchOutcome const& outcome) {
 		using Outcome = Match::MatchOutcome;
 		if (outcome == Outcome::WIN_HOST) {
 			return os << "Host Won";
