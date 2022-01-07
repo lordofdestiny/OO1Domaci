@@ -148,6 +148,7 @@
     <ClCompile Include="Team.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\OO1Domaci3V1\Helpers.h" />
     <ClInclude Include="Exceptions.h" />
     <ClInclude Include="Match.h" />
     <ClInclude Include="Pair.h" />
