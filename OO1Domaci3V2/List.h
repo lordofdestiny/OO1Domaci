@@ -97,7 +97,7 @@ namespace ndb {
 		}
 
 		std::ostream& print(bool new_line = true, std::ostream& os = std::cout) {
-			if (_size == 0) return std::cout << "[empty]";
+			if (_size == 0) return os << "[empty]";
 			NodePtr temp = _head;
 			while (temp != nullptr) {
 				os << temp->data << ' ';
