@@ -15,14 +15,9 @@ namespace ndb {
 	public:
 		Vendor(std::string name) : _name(name) {}
 
-		void expand_catalogue(Item const& item, double margin, short delivery_time) {
-			if (margin <= 0) throw EInvalidMargin();
-			_catalogue += {item, margin, delivery_time};
-		}
+		void expand_catalogue(Item const& item, double margin, short delivery_time);
 
-		std::string const& get_name() const {
-			return _name;
-		}
+		std::string const& get_name() const;
 	protected:
 		void process_shipment(Shipment const& shipment) const override;
 	private:

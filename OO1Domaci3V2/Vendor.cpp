@@ -1,6 +1,15 @@
 #include "Vendor.h"
 
 namespace ndb {
+	void Vendor::expand_catalogue(Item const& item, double margin, short delivery_time) {
+		if (margin <= 0) throw EInvalidMargin();
+		_catalogue += {item, margin, delivery_time};
+	}
+
+	std::string const& Vendor::get_name() const {
+		return _name;
+	}
+
 	void Vendor::process_shipment(Shipment const& shipment) const {
 		/* Get reference to shipment details */ 
 		auto& shipment_details = get_shipment_details(shipment); 
