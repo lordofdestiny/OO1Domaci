@@ -11,7 +11,9 @@ namespace ndb {
 	public:
 		Timepoint(t_time year, t_time month, t_time day, t_time hour, t_time minute) :
 			_year(year), _month(month), _day(day), _hour(hour), _minute(minute) {
-			validate();
+			if (!valid_timepoint()) {
+				throw InvalidTimepoint();
+			}
 		}
 
 		t_time year() const { return _year; }
@@ -31,7 +33,6 @@ namespace ndb {
 			{31,29,31,30,31,30,31,31,30,31,30,31},
 		};
 		static bool is_leap_year(t_time year);
-		bool is_valid_timepoint();
-		void validate();
+		bool valid_timepoint();
 	};
 }
