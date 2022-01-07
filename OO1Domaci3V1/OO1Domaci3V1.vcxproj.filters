@@ -24,6 +24,9 @@
     <ClCompile Include="EMail.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EMailWithText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="List.h">

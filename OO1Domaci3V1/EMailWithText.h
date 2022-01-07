@@ -12,20 +12,11 @@ namespace ndb {
 		std::string const& get_text() const { return _text; }
 		bool was_sent() const { return _state > EMailState::PREPARING;  }
 
-		void set_text(std::string const& text) {
-			if (_state == EMailState::SENT) {
-				throw EMailAlreadySent();
-			};
-			_text = text;
-		}
+		void set_text(std::string const& text);
 
-		virtual void send_mail() const override {
-			_state = EMailState::SENT;
-		}
+		virtual void send_mail() const override;
 
-		virtual EMailWithText* copy() const override {
-			return new EMailWithText(*this);
-		}
+		virtual EMailWithText* copy() const override;
 	protected:
 		virtual std::ostream& print(std::ostream& os) const override {
 			return EMail::print(os) << '\n' << _text;
