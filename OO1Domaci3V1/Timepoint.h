@@ -13,6 +13,13 @@ namespace ndb {
 			_year(year), _month(month), _day(day), _hour(hour), _minute(minute) {
 			validate();
 		}
+
+		t_time year() const { return _year; }
+		t_time month() const { return _month; }
+		t_time day() const { return _day; }
+		t_time hour() const { return _hour; }
+		t_time min() const { return _minute; }
+		
 		friend std::ostream& operator<<(std::ostream& os, Timepoint const& timepoint);
 	public:
 		static inline const t_time min_year = 1950;
