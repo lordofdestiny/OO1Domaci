@@ -10,17 +10,13 @@ ndb::Path generate_path(std::size_t length) {
 	std::default_random_engine engine(r());
 	std::uniform_int_distribution<long> uniform_dist(-10, 10);
 	Path path;
-	for (std::size_t i = 0; i < length; ++i) {
-		bool generated = false;
-		while (!generated) {
-			try {
-				path += {uniform_dist(engine), uniform_dist(engine)};
-				generated = true;
-			}
-			catch (ndb::EPathContainsPoint const&) {
-				generated = false;
-			}
+	std::size_t i = 0;
+	while (i < length) {
+		try {
+			path += {uniform_dist(engine), uniform_dist(engine)};
+			i++;
 		}
+		catch (ndb::EPathContainsPoint const&){}
 	}
 
 	return path;
@@ -28,8 +24,7 @@ ndb::Path generate_path(std::size_t length) {
 
 int main() {
 	using ndb::Path, ndb::Vehicle;
-	Path path = generate_path(2);
-	std::cout << "Path length: " << path.get_length() << '\n';
+	Path path = generate_path(5);
 	std::cout << "Path length: " << path.get_length() << '\n';
 	std::cout << path << '\n';
 	Vehicle car("Honda Civic");

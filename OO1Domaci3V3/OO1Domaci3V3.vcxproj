@@ -143,6 +143,7 @@
   <ItemGroup>
     <ClCompile Include="OO1Domaci3V3.cpp" />
     <ClCompile Include="Path.cpp" />
+    <ClCompile Include="Point.cpp" />
     <ClCompile Include="Vehicle.cpp" />
   </ItemGroup>
   <ItemGroup>
