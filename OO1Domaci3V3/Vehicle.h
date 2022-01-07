@@ -10,20 +10,11 @@ namespace ndb {
 	public:
 		Vehicle(std::string const& model_name) :
 			_model(model_name) {}
-		double get_transport_price(Path const& path) {
-			return get_starting_price() + path.get_length() * _price_per_unit;
-		}
-
-		friend std::ostream& operator<<(std::ostream& os, Vehicle const& vehicle) {
-			return vehicle.print(os);
-		}
+		double get_transport_price(Path const& path);
+		friend std::ostream& operator<<(std::ostream& os, Vehicle const& vehicle);
 	protected:
-		virtual double get_starting_price() const {
-			return _get_starting_price;
-		}
+		virtual double get_starting_price() const;
 
-		virtual std::ostream& print(std::ostream& os) const {
-			return os << _model;
-		}
+		virtual std::ostream& print(std::ostream& os) const;
 	};
 }
