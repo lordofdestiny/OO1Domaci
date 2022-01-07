@@ -2,7 +2,7 @@
 
 namespace ndb {
 	Path& Path::operator+=(Point const& point) {
-		if (has_point(point)) throw EPathContainsPoint();
+		if (has(point)) throw EPathContainsPoint();
 		_list += point;
 		_length_calculated = false;
 		return *this;
@@ -18,7 +18,7 @@ namespace ndb {
 		return _length;
 	}
 
-	bool Path::has_point(Point const& point) const {
+	bool Path::has(Point const& point) const {
 		for (std::size_t i = 0; i < _list.size(); ++i) {
 			if (_list[i] == point) return true;
 		}

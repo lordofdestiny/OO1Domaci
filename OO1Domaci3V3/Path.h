@@ -15,6 +15,6 @@ namespace ndb {
 
 		friend std::ostream& operator<<(std::ostream& os, Path const& path);
 	private:
-		bool has_point(Point const& point) const;
+		bool has(Point const& point) const;
 	};
 }
