@@ -41,6 +41,9 @@ namespace ndb {
 		if (0 > position || position >= _max_size) {
 			throw EInvalidPosition();
 		}
+		if (_players[position] != nullptr) {
+			throw EPositionTaken();
+		}
 		_players[position] = &player;
 		_size += 1;
 		return *this;
@@ -54,18 +57,14 @@ namespace ndb {
 		if (0 > position || position >= _max_size) {
 			throw EInvalidPosition();
 		}
-		if (_players[position] == nullptr) {
-			return nullptr;
-		}
-		return _players[position];
+		return _players[position] ;
 	}
 
 	int Team::value() const {
-		int value_sum = std::accumulate(_players, _players + _max_size, 0,
+		return std::accumulate(_players, _players + _max_size, 0,
 			[](int sum, Player const* player) {
-				return player != nullptr ? sum + player->value() : sum;
-			});
-		return value_sum / static_cast<int>(_size);
+				return sum + (player ? player->value() : 0);
+			}) / static_cast<int>(_size);
 	}
 
 	std::ostream& Team::print(std::ostream& os) const {
