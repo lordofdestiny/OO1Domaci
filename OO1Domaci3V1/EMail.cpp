@@ -33,7 +33,7 @@ namespace ndb{
 	};
 
 	std::ostream& EMail::print(std::ostream& os) const {
-		return os << _title << '\n';
+		os << _title << '\n';
 		if (_sender == nullptr) os << "none";
 		else os << *_sender << '\n';
 		if (_receiver == nullptr) os << "none";
