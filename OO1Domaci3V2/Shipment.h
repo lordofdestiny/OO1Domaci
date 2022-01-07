@@ -34,7 +34,6 @@ namespace ndb {
 		void calculate_details() const;
 
 		Item const& get_item() const { return _item; }
-
 		t_id get_id() const { return _id; }
 
 		ShipmentDetails const& get_details() const;
