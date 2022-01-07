@@ -9,6 +9,9 @@ namespace ndb {
 		EMailWithText(User& sender, User& receiver, std::string const& title) :
 			EMail(sender, receiver, title) {}
 
+		std::string const& get_text() const { return _text; }
+		bool was_sent() const { return _state > EMailState::PREPARING;  }
+
 		void set_text(std::string const& text) {
 			if (_state == EMailState::SENT) {
 				throw EMailAlreadySent();
