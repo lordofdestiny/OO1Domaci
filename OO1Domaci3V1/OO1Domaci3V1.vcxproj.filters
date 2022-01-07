@@ -21,6 +21,9 @@
     <ClCompile Include="Timepoint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EMail.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="List.h">

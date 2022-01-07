@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EMail.cpp" />
     <ClCompile Include="OO1Domaci3V1.cpp" />
     <ClCompile Include="Timepoint.cpp" />
   </ItemGroup>
