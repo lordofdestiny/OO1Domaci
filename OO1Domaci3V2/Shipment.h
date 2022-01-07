@@ -12,24 +12,19 @@ namespace ndb {
 			unsigned shipping_time = 0;
 		};
 		friend class ShipmentHandler;
-		using id_type = unsigned long long;
+		using t_id = unsigned long long;
 	private:
-		static inline id_type _next_id = 0;
-		id_type _id = _next_id++;
+		static inline t_id _next_id = 0;
+		t_id _id = _next_id++;
 		Item _item;
 		mutable bool _details_calculated = false;
-		mutable ShipmentDetails _details{ 0, 0 };
+		mutable ShipmentDetails _details{};
 		List<ShipmentHandler*> _handlers{};
 	public:
-		Shipment(Item const& item) :
-			_item(item) {}
+		Shipment(Item const& item) : _item(item) {}
 
-		Shipment(Shipment const& other) :
-			_item(other._item),
-			_handlers(other._handlers) {}
-		Shipment(Shipment&& other) noexcept :
-			_id(other._id),
-			_item(std::move(other._item)) {}
+		Shipment(Shipment const& other);
+		Shipment(Shipment&& other) noexcept;
 
 		Shipment& operator=(Shipment const& rhs);
 		Shipment& operator=(Shipment&& rhs) noexcept;
@@ -40,7 +35,7 @@ namespace ndb {
 
 		Item const& get_item() const { return _item; }
 
-		id_type get_id() const { return _id; }
+		t_id get_id() const { return _id; }
 
 		ShipmentDetails const& get_details() const;
 

@@ -2,6 +2,13 @@
 #include "ShipmentHandler.h"
 
 namespace ndb {
+	Shipment::Shipment(Shipment const& other) :
+		_item(other._item),
+		_handlers(other._handlers) {}
+	Shipment::Shipment(Shipment&& other) noexcept :
+		_id(other._id),
+		_item(std::move(other._item)) {}
+
 	Shipment& Shipment::operator=(Shipment const& rhs) {
 		_id = _next_id++;
 		_details = { 0, 0 };
