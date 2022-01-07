@@ -3,23 +3,22 @@
 #include "User.h"
 
 namespace ndb {
-	enum class EMailState { IN_PREPARATION, SENT, RECEIVED };
+	enum class EMailState { NONE, IN_PREPARATION, SENT, RECEIVED };
 
 	class EMail {
 	protected:
 		User* _sender, * _receiver;
-		mutable EMailState _state;
 		std::string _title;
+		mutable EMailState _state = EMailState::IN_PREPARATION;
 	public:
 		EMail(User& sender, User& receiver, std::string const& title) :
-			_sender(&sender), _receiver(&receiver),
-			_title(title), _state(EMailState::IN_PREPARATION) {}
+			_sender(&sender), _receiver(&receiver), _title(title) {}
 
-		EMail(EMail const&) = default;
-		EMail(EMail&&) = default;
+		EMail(EMail const& other);
+		EMail(EMail&& other) noexcept;
 
-		EMail& operator=(EMail const&) = default;
-		EMail& operator=(EMail&&) = default;
+		EMail& operator=(EMail const& rhs);
+		EMail& operator=(EMail&& rhs) noexcept;
 
 		virtual ~EMail() = default;
 
@@ -30,9 +29,7 @@ namespace ndb {
 			return mail.print(os);
 		}
 	protected:
-		virtual std::ostream& print(std::ostream& os) const {
-			return os << _title << '\n' << *_sender << '\n' << *_receiver;
-		}
+		virtual std::ostream& print(std::ostream& os) const;
 	};
 }
 
