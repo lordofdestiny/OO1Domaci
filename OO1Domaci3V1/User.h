@@ -14,9 +14,6 @@ namespace ndb {
 		User& operator=(User const&) = delete;
 		User& operator=(User&&) noexcept = default;
 
-		std::string const& get_name() const { return _name; }
-		std::string const& get_email() const { return _email; }
-
 		friend std::ostream& operator<<(std::ostream& os, User const& user) {
 			return os << '(' << user._name << ')' << user._email;
 		}
