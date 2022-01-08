@@ -15,12 +15,6 @@ namespace ndb {
 				throw InvalidTimepoint();
 			}
 		}
-
-		t_time year() const { return _year; }
-		t_time month() const { return _month; }
-		t_time day() const { return _day; }
-		t_time hour() const { return _hour; }
-		t_time min() const { return _minute; }
 		
 		friend std::ostream& operator<<(std::ostream& os, Timepoint const& timepoint);
 	public:
