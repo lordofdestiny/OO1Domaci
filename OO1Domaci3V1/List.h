@@ -78,40 +78,6 @@ namespace ndb {
 			return *this;
 		}
 
-		List& to_begin() {
-			return const_cast<List&>(const_cast<const List&>(*this).to_begin());
-		}
-
-		const List& to_begin() const {
-			_curr = _head;
-			_prev = nullptr;
-			return *this;
-		}
-
-		List& seek_next() {
-			return const_cast<List&>(const_cast<const List&>(*this).seek_next());
-		}
-
-		const List& seek_next() const {
-			if (_curr != nullptr) {
-				_prev = std::exchange(_curr, _curr->next);
-			}
-			return *this;
-		}
-
-		bool is_valid() const {
-			return _curr != nullptr;
-		}
-
-		reference get_current() {
-			return const_cast<reference>(const_cast<List const&>(*this).get_current());
-		}
-
-		const_reference get_current() const {
-			if (_curr == nullptr) throw EListIndexOutOfRange();
-			return _curr->data;
-		}
-
 		/*List& insert_before_current(const_reference value) {
 			if (_curr == nullptr) {
 				return this->push_back(value);
@@ -156,6 +122,40 @@ namespace ndb {
 
 			return found;
 		}*/
+
+		List& to_begin() {
+			return const_cast<List&>(const_cast<const List&>(*this).to_begin());
+		}
+
+		const List& to_begin() const {
+			_curr = _head;
+			_prev = nullptr;
+			return *this;
+		}
+
+		List& seek_next() {
+			return const_cast<List&>(const_cast<const List&>(*this).seek_next());
+		}
+
+		const List& seek_next() const {
+			if (_curr != nullptr) {
+				_prev = std::exchange(_curr, _curr->next);
+			}
+			return *this;
+		}
+
+		bool is_valid() const {
+			return _curr != nullptr;
+		}
+
+		reference get_current() {
+			return const_cast<reference>(const_cast<List const&>(*this).get_current());
+		}
+
+		const_reference get_current() const {
+			if (_curr == nullptr) throw EListIndexOutOfRange();
+			return _curr->data;
+		}
 
 		List& remove_current() {
 			if (_curr == nullptr) throw EListIndexOutOfRange();
