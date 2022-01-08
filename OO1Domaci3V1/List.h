@@ -48,7 +48,7 @@ namespace ndb {
 			return *this;
 		}
 
-		~List() {
+		virtual ~List() {
 			free_list();
 		}
 
