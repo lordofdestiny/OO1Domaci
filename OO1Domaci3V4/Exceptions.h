@@ -1,4 +1,6 @@
-#pragma once
+#ifndef EXCEPT_H
+#define EXCEPT_H
+
 #include <exception>
 #include <stdexcept>
 
@@ -35,3 +37,5 @@ namespace ndb {
 			runtime_error("Match was not played, points unknown") {}
 	};
 }
+
+#endif

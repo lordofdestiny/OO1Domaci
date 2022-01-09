@@ -1,4 +1,6 @@
-#pragma once
+#ifndef PATH_H
+#define PATH_H
+
 #include <ostream>
 #include <utility>
 
@@ -59,3 +61,5 @@ namespace ndb {
 		}
 	};
 }
+
+#endif
