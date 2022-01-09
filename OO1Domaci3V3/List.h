@@ -1,4 +1,6 @@
-#pragma once
+#ifndef LIST_H
+#define LIST_H
+
 #include <iostream>
 #include <utility>
 #include "Exceptions.h"
@@ -79,7 +81,7 @@ namespace ndb {
 			return temp->data;
 		}
 
-		List& remove_at(std::size_t index) {
+		/*List& remove_at(std::size_t index) {
 			NodePtr prev = nullptr, curr = _head;
 			while (index > 0 || index >= _size) {
 				--index;
@@ -95,7 +97,12 @@ namespace ndb {
 			--_size;
 			return *this;
 		}
+		*/
 
+		friend std::ostream& operator<<(std::ostream& os, List const& list) {
+			return print(list, false);
+		}
+	private:
 		std::ostream& print(bool new_line = true, std::ostream& os = std::cout) {
 			if (_size == 0) return std::cout << "[empty]";
 			NodePtr temp = _head;
@@ -106,10 +113,6 @@ namespace ndb {
 			return new_line ? os << '\n' : os;
 		}
 
-		friend std::ostream& operator<<(std::ostream& os, List const& list) {
-			return print(list, false);
-		}
-	private:
 		void copy_list(List const& other) {
 			NodePtr temp = other._head;
 			NodePtr head = nullptr, tail = nullptr;
@@ -135,3 +138,4 @@ namespace ndb {
 		}
 	};
 }
+#endif
