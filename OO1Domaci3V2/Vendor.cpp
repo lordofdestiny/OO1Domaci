@@ -10,14 +10,14 @@ namespace ndb {
 		return _name;
 	}
 
-	void Vendor::process_shipment(Shipment const& shipment) const {
+	void Vendor::process_shipment(Shipment& shipment) const {
 		/* Get reference to shipment details */ 
 		auto& shipment_details = get_shipment_details(shipment); 
 		/* Find item in catalogue */ 
 		auto const& [item, margin, delivery_time] = find_item(shipment.get_item()); 
 		/* Update details */
 		shipment_details.shipping_time += delivery_time; // 1 Update time
-		shipment_details.sprice += item.get_price() * (1+margin); // 2 Update price
+		shipment_details.sprice += item.get_price() * margin; // 2 Update price
 	}
 
 	Vendor::CatalogueItem const& Vendor::find_item(Item const& item) const {

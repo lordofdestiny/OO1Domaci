@@ -17,8 +17,8 @@ namespace ndb {
 		static inline t_id _next_id = 0;
 		t_id _id = _next_id++;
 		Item _item;
-		mutable bool _details_calculated = false;
-		mutable ShipmentDetails _details{};
+		bool _details_calculated = false;
+		ShipmentDetails _details{};
 		List<ShipmentHandler*> _handlers{};
 	public:
 		Shipment(Item const& item) : _item(item) {}
@@ -31,11 +31,11 @@ namespace ndb {
 
 		Shipment& operator+=(ShipmentHandler& handler);
 
-		void calculate_details() const;
+		void calculate_details();
 
-		Item const& get_item() const { return _item; }
+		/*Ask about first two getters*/
 		t_id get_id() const { return _id; }
-
+		Item const& get_item() const { return _item; }
 		ShipmentDetails const& get_details() const;
 
 		friend std::ostream& operator<<(std::ostream& os, Shipment const& shimpemnt);

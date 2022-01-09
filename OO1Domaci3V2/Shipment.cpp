@@ -35,7 +35,7 @@ namespace ndb {
 		return *this;
 	}
 
-	void Shipment::calculate_details() const {
+	void Shipment::calculate_details() {
 		for (std::size_t i = 0; i < _handlers.size(); ++i) {
 			_handlers[i]->process_shipment(*this);
 		}
@@ -50,7 +50,7 @@ namespace ndb {
 	}
 
 	std::ostream& operator<<(std::ostream& os, Shipment const& shimpemnt) {
-		return os << "Posiljka[" << shimpemnt._id << ", "
+		return os << "Shipment[" << shimpemnt._id << ", "
 			<< shimpemnt._item.get_name() << "]";
 	}
 }

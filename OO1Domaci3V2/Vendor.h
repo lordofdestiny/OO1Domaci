@@ -11,7 +11,7 @@ namespace ndb {
 			short delivery_time;
 		};
 		std::string _name;
-		List<CatalogueItem> _catalogue;
+		List<CatalogueItem> _catalogue{};
 	public:
 		Vendor(std::string name) : _name(name) {}
 
@@ -19,7 +19,7 @@ namespace ndb {
 
 		std::string const& get_name() const;
 	protected:
-		void process_shipment(Shipment const& shipment) const override;
+		void process_shipment(Shipment& shipment) const override;
 	private:
 		CatalogueItem const& find_item(Item const& item) const;
 	};
