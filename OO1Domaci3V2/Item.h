@@ -1,4 +1,6 @@
-#pragma once
+#ifndef ITEM_H
+#define ITEM_H
+
 #include <string>
 
 namespace ndb {
@@ -25,3 +27,4 @@ namespace ndb {
 	};
 }
 
+#endif
