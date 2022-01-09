@@ -61,10 +61,14 @@ namespace ndb {
 	}
 
 	double Team::value() const {
-		return std::accumulate(_players, _players + _max_size, 0,
-			[](double sum, Player const* player) {
-				return sum + (player ? player->value() : 0);
-			}) / _size;
+		double sum = 0;
+		for (std::size_t i = 0; i < _max_size; ++i) {
+			if (_players[i] != nullptr) {
+				sum += _players[i]->value();
+			}
+		}
+
+		return sum / _size;
 	}
 
 	std::ostream& Team::print(std::ostream& os) const {
