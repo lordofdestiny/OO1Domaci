@@ -1,4 +1,6 @@
-#pragma once
+#ifndef EXCPET_H
+#define EXCPET_H
+
 #include <exception>
 #include <stdexcept>
 
@@ -13,3 +15,5 @@ namespace ndb {
 			std::runtime_error("Cannot add point. Path already contains it") {};
 	};
 }
+
+#endif
