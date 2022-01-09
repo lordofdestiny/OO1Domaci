@@ -3,9 +3,9 @@
 
 namespace ndb {
 	class PrivilegedTeam : public Team {
-		int _min_value;
+		double _min_value;
 	public:
-		PrivilegedTeam(std::string const& name, std::size_t size, int min_value) :
+		PrivilegedTeam(std::string const& name, std::size_t size, double min_value) :
 			Team(name, size), _min_value(min_value) { }
 
 		/* Join a player to the position, only if his value is large enough */
