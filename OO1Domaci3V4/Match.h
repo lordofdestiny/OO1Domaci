@@ -1,4 +1,6 @@
-#pragma once
+#ifndef MATCH_H
+#define MATCH_H
+
 #include "Team.h"
 #include "Pair.h"
 
@@ -45,3 +47,4 @@ namespace ndb {
 	};
 }
 
+#endif
