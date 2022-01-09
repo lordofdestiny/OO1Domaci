@@ -1,4 +1,6 @@
-#pragma once
+#ifndef POINT_H
+#define POINT_H
+
 #include <cmath>
 #include <ostream>
 
@@ -19,3 +21,5 @@ namespace ndb {
 		friend std::ostream& operator<<(std::ostream& os, Point const& point);
 	};
 }
+
+#endif
