@@ -5,15 +5,15 @@
 #include "Pair.h"
 
 namespace ndb {
-	class Match {
-	public:
-		/** Desribes the result of the match
+	/** Desribes the result of the match
 		* UNKNOWN - not played yet
 		* WIN_HOST
 		* DRAW
 		* WIN_GUEST */
-		enum class MatchOutcome { UNKNOWN, WIN_HOST, DRAW, WIN_GUEST };
-		friend std::ostream& operator<<(std::ostream& os, MatchOutcome const& outcome);
+	enum class MatchOutcome { UNKNOWN, WIN_HOST, DRAW, WIN_GUEST };
+	std::ostream& operator<<(std::ostream& os, MatchOutcome const& outcome);
+
+	class Match {
 	private:
 		Pair<Team> _teams;
 		MatchOutcome _outcome = MatchOutcome::UNKNOWN;

@@ -6,8 +6,20 @@ namespace ndb {
 		_teams(other._teams) {}
 	Match::Match(Match&& other) noexcept :
 		_teams(std::move(other._teams)) { }
-	Match& Match::operator=(Match const& rhs) { return *this; }
-	Match& Match::operator=(Match&& rhs) noexcept { return *this; }
+	Match& Match::operator=(Match const& rhs) {
+		if (this != &rhs) {
+			_teams = rhs._teams;
+			_outcome = MatchOutcome::UNKNOWN;
+		}
+		return *this;
+	}
+	Match& Match::operator=(Match&& rhs) noexcept { 
+		if (this != &rhs) {
+			_teams = std::move(rhs._teams);
+			_outcome = std::exchange(rhs._outcome, MatchOutcome::UNKNOWN);
+		}
+		return *this;
+	}
 
 	void Match::play_match() {
 		if (_outcome != MatchOutcome::UNKNOWN) 	return;
@@ -46,13 +58,12 @@ namespace ndb {
 	}
 
 	Pair<int> ndb::Match::get_points() const {
-		using Outcome = Match::MatchOutcome;
 		switch (_outcome) {
-		case Outcome::WIN_HOST:
+		case MatchOutcome::WIN_HOST:
 			return { new int{3},new int{0} };
-		case Outcome::DRAW:
+		case MatchOutcome::DRAW:
 			return { new int{3},new int{0} };
-		case Outcome::WIN_GUEST:
+		case MatchOutcome::WIN_GUEST:
 			return { new int{3},new int{0} };
 		default:
 			throw EMatchNotPlayed();
@@ -64,11 +75,10 @@ namespace ndb {
 	}
 
 	Team* Match::get_winner() {
-		using Outcome = Match::MatchOutcome;
 		switch (_outcome) {
-		case Outcome::WIN_HOST:
+		case MatchOutcome::WIN_HOST:
 			return _teams.get_first();
-		case Outcome::WIN_GUEST:
+		case MatchOutcome::WIN_GUEST:
 			return _teams.get_second();
 		default:
 			return nullptr;
@@ -84,21 +94,20 @@ namespace ndb {
 
 	std::ostream& operator<<(std::ostream& os, Match const& match) {
 		os << match._teams;
-		if (match._outcome != Match::MatchOutcome::UNKNOWN) {
+		if (match._outcome != MatchOutcome::UNKNOWN) {
 			os << " " << match._outcome;
 		}
 
 		return os;
 	}
 
-	std::ostream& ndb::operator<<(std::ostream& os, Match::MatchOutcome const& outcome) {
-		using Outcome = Match::MatchOutcome;
+	std::ostream& ndb::operator<<(std::ostream& os, MatchOutcome const& outcome) {
 		switch (outcome) {
-		case Outcome::WIN_HOST:
+		case MatchOutcome::WIN_HOST:
 			return os << "Host won";
-		case Outcome::DRAW:
+		case MatchOutcome::DRAW:
 			return os << "Draw";
-		case Outcome::WIN_GUEST:
+		case MatchOutcome::WIN_GUEST:
 			return os << "Guest won";
 		default:
 			return os << "Not played";
