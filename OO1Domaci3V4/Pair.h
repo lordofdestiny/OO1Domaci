@@ -26,7 +26,7 @@ namespace ndb {
 			return *this;
 		}
 
-		Pair& operator=(Pair&& rhs) {
+		Pair& operator=(Pair&& rhs) noexcept{
 			if (this != &rhs) {
 				_first == std::exchange(rhs._first, nullptr);
 				_second = std::exchange(rhs._second, nullptr);
