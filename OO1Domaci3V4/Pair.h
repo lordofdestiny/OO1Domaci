@@ -18,6 +18,22 @@ namespace ndb {
 			_first(std::exchange(other._first, nullptr)),
 			_second(std::exchange(other._second, nullptr)) {}
 
+		Pair& operator=(Pair const& rhs) {
+			if (this != &rhs) {
+				_first == rhs._first;
+				_second = rhs._second;
+			}
+			return *this;
+		}
+
+		Pair& operator=(Pair&& rhs) {
+			if (this != &rhs) {
+				_first == std::exchange(rhs._first, nullptr);
+				_second = std::exchange(rhs._second, nullptr);
+			}
+			return *this;
+		}
+
 		/* Returns first pointer of pair */
 		Type* get_first() { return _first; }
 		Type const* const get_first() const { return _first; }
