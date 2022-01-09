@@ -1,4 +1,6 @@
-#pragma once
+#ifndef PRIV_TEAEM_H
+#define PRIV_TEAM_H
+
 #include "Team.h"
 
 namespace ndb {
@@ -14,3 +16,5 @@ namespace ndb {
 		virtual std::ostream& print(std::ostream& os) const override;
 	};
 }
+
+#endif
