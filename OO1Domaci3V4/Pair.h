@@ -7,9 +7,10 @@
 namespace ndb {
 	template<class Type>
 	class Pair {
-		Type* _first;
-		Type* _second;
+		Type* _first{};
+		Type* _second{};
 	public:
+		Pair() = default;
 		Pair(Type* ptr1, Type* ptr2) :
 			_first(ptr1), _second(ptr2) {}
 		Pair(Pair const& other) = default;
