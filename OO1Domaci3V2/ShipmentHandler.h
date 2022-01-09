@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SHIPMENT_HANDLER_H
+#define SHIPMENT_HANDLER_H
+
 #include "Shipment.h"
 
 namespace ndb {
@@ -18,3 +20,5 @@ namespace ndb {
 		}
 	};
 }
+
+#endif

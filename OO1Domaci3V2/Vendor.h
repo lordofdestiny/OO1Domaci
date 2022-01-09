@@ -1,4 +1,6 @@
-#pragma once
+#ifndef VENDOR_H
+#define VENDOR_H
+
 #include "ShipmentHandler.h"
 #include "Exceptions.h"
 #include "List.h"
@@ -25,3 +27,4 @@ namespace ndb {
 	};
 }
 
+#endif

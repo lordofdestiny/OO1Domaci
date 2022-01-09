@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SHIPMENT_H
+#define SHIPMENT_H
+
 #include <utility>
 #include "Item.h"
 #include "List.h"
@@ -41,3 +43,5 @@ namespace ndb {
 		friend std::ostream& operator<<(std::ostream& os, Shipment const& shimpemnt);
 	};
 }
+
+#endif
