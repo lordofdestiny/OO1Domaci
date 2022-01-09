@@ -1,7 +1,7 @@
 #include "Vehicle.h"
 
 namespace ndb {
-	double Vehicle::get_transport_price(Path const& path) {
+	double Vehicle::get_transport_price(Path const& path) const{
 		return get_starting_price() + path.get_length() * _price_per_unit;
 	}
 

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef VEHICLE_H
+#define VEHICLE_H
 #include <string>
 #include "Path.h"
 
@@ -10,7 +11,7 @@ namespace ndb {
 	public:
 		Vehicle(std::string const& model_name) :
 			_model(model_name) {}
-		double get_transport_price(Path const& path);
+		double get_transport_price(Path const& path) const;
 		friend std::ostream& operator<<(std::ostream& os, Vehicle const& vehicle);
 	protected:
 		virtual double get_starting_price() const;
@@ -18,3 +19,4 @@ namespace ndb {
 		virtual std::ostream& print(std::ostream& os) const;
 	};
 }
+#endif
