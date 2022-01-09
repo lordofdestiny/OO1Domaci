@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Exceptions.h"
 
 namespace ndb {
 	double Player::value() const {
@@ -6,10 +7,12 @@ namespace ndb {
 	}
 
 	double Player::increase_value(double percent) {
+		if (percent < 0) throw EInvalidPercentage();
 		return _value = _value * (100 + percent) / 100;
 	}
 
 	double Player::decrease_vaue(double percent) {
+		if (percent < 0) throw EInvalidPercentage();
 		return _value = _value * (100 - percent) / 100;
 	}
 

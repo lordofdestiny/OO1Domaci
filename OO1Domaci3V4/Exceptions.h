@@ -3,6 +3,11 @@
 #include <stdexcept>
 
 namespace ndb {
+	struct EInvalidPercentage : std::runtime_error {
+		EInvalidPercentage() :
+			runtime_error("Percentage value must be positive") {}
+	};
+
 	struct ETeamFull : std::runtime_error {
 		ETeamFull() :
 			runtime_error("Cannot add a player into a full team") {}
