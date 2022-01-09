@@ -147,7 +147,6 @@
     <ClCompile Include="Vehicle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\OO1Domaci3V1\Helpers.h" />
     <ClInclude Include="Exceptions.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Path.h" />

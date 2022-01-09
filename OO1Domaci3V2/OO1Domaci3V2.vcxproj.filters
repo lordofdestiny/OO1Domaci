@@ -44,8 +44,5 @@
     <ClInclude Include="Vendor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\OO1Domaci3V1\Helpers.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
