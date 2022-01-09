@@ -1,4 +1,6 @@
-#pragma once
+#ifndef TEAM_H
+#define TEAM_H
+
 #include <string>
 #include "Player.h"
 
@@ -39,3 +41,5 @@ namespace ndb {
 		void free_data();
 	};
 }
+
+#endif
