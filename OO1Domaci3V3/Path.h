@@ -1,4 +1,6 @@
-#pragma once
+#ifndef PATH_H
+#define PATH_H
+
 #include "List.h"
 #include "Point.h"
 
@@ -18,3 +20,5 @@ namespace ndb {
 		bool has(Point const& point) const;
 	};
 }
+
+#endif
