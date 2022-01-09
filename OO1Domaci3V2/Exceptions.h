@@ -1,4 +1,5 @@
-#pragma once
+#ifndef EXCEPT_H
+#define EXCEPT_H
 #include <exception>
 #include <stdexcept>
 
@@ -30,3 +31,4 @@ namespace ndb {
 			std::runtime_error("Margin must be posivive") {}
 	};
 }
+#endif
