@@ -35,7 +35,7 @@
     <ClInclude Include="Exceptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Helpers.h">
+    <ClInclude Include="Separator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="User.h">

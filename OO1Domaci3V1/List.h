@@ -1,4 +1,6 @@
-#pragma once
+#ifndef LIST_H
+#define LIST_H
+
 #include "Exceptions.h"
 #include <iostream>
 #include <utility>
@@ -215,3 +217,4 @@ namespace ndb {
 		}
 	};
 }
+#endif

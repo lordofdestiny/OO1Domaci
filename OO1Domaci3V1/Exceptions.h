@@ -1,4 +1,5 @@
-#pragma once
+#ifndef EXCEPT_H
+#define EXCEPT_H
 #include <stdexcept>
 
 namespace ndb {
@@ -17,3 +18,4 @@ namespace ndb {
 			std::logic_error("Cannot send an email that has already been sent!") {		}
 	};
 }
+#endif

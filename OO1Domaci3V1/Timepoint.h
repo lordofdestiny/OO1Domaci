@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TIMEPOINT_H
+#define TIMEPOINT_H
 #include "Exceptions.h"
 #include <ostream>
 
@@ -30,3 +31,4 @@ namespace ndb {
 		bool valid_timepoint();
 	};
 }
+#endif

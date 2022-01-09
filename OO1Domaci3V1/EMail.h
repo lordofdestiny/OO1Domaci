@@ -1,4 +1,6 @@
-#pragma once
+#ifndef EMAIL_H
+#define EMAIL_H
+
 #include <ostream>
 #include "User.h"
 
@@ -38,3 +40,4 @@ namespace ndb {
 	};
 }
 
+#endif

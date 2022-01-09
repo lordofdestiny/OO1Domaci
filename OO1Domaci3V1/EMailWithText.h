@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TEXT_MAIL_H
+#define TEXT_MAIL_H
 #include "EMail.h"
 #include "Exceptions.h"
 
@@ -8,9 +9,6 @@ namespace ndb {
 	public:
 		EMailWithText(User& sender, User& receiver, std::string const& title) :
 			EMail(sender, receiver, title) {}
-
-		std::string const& get_text() const { return _text; }
-		bool was_sent() const { return _state > EMailState::PREPARING;  }
 
 		void set_text(std::string const& text);
 		/* Check if this getter is allowed/needed */
@@ -26,3 +24,4 @@ namespace ndb {
 	};
 }
 
+#endif

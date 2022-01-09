@@ -2,7 +2,7 @@
 #include <string>
 #include "List.h"
 #include "EMailWithText.h"
-#include "Helpers.h"
+#include "Separator.h"
 
 int main() {
 	using ndb::User, ndb::EMailWithText, ndb::EMailState;

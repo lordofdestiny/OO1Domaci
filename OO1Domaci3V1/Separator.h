@@ -1,5 +1,7 @@
-#pragma once
+#ifndef SEPARATOR_H
+#define SEPARATOR_H
 #include <cstddef>
+#include <ostream>
 
 namespace ndb {
 	template<char sep = '-', std::size_t size = 50, bool new_line = true>
@@ -27,3 +29,4 @@ namespace ndb {
 	auto rsep = ring_separator<50>;
 	auto csep = cross_separator<50>;
 }
+#endif

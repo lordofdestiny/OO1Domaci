@@ -148,7 +148,7 @@
   <ItemGroup>
     <ClInclude Include="EMail.h" />
     <ClInclude Include="EMailWithText.h" />
-    <ClInclude Include="Helpers.h" />
+    <ClInclude Include="Separator.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Exceptions.h" />
     <ClInclude Include="Timepoint.h" />
