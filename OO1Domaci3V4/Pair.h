@@ -20,11 +20,11 @@ namespace ndb {
 
 		/* Returns first pointer of pair */
 		Type* get_first() { return _first; }
-		Type const* get_first() const { return _first; }
+		Type const* const get_first() const { return _first; }
 
 		/* Returns second pointer of pair */
 		Type* get_second() { return _second; }
-		Type const* get_second() const { return _second; }
+		Type const* const get_second() const { return _second; }
 
 		/* Sets first pointer of pair*/
 		Pair& set_first(Type* ptr) {
