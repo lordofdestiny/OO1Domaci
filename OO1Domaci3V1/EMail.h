@@ -22,6 +22,11 @@ namespace ndb {
 
 		virtual ~EMail() = default;
 
+		User const& get_sender() const { return *_sender; }
+		User const& get_receiver() const { return *_receiver; }
+		std::string const& get_title() const { return _title; }
+		EMailState get_state() const { return _state; }
+
 		virtual void send_mail() const = 0;
 		virtual EMail* copy() const = 0;
 
