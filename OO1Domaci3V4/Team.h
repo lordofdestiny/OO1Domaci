@@ -26,7 +26,7 @@ namespace ndb {
 		Player* operator[](std::size_t position);
 		Player const* operator[](std::size_t position) const;
 		/* Calculate the value of the team*/
-		int value() const;
+		double value() const;
 
 		friend bool operator==(Team const& lhs, Team const& rhs);
 		friend bool operator!=(Team const& lhs, Team const& rhs);

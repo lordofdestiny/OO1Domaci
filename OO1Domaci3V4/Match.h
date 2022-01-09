@@ -15,7 +15,7 @@ namespace ndb {
 	private:
 		Pair<Team> _teams;
 		MatchOutcome _outcome = MatchOutcome::UNKNOWN;
-		static const int _percent = 10;
+		static inline const double _percent = 10;
 	public:
 		Match(Team* host, Team* guess) :
 			_teams(host, guess) {}

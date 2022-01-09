@@ -1,15 +1,15 @@
 #include "Player.h"
 
 namespace ndb {
-	int Player::value() const {
+	double Player::value() const {
 		return _value;
 	}
 
-	int Player::increase_value(unsigned int percent) {
+	double Player::increase_value(double percent) {
 		return _value = _value * (100 + percent) / 100;
 	}
 
-	int Player::decrease_vaue(unsigned int percent) {
+	double Player::decrease_vaue(double percent) {
 		return _value = _value * (100 - percent) / 100;
 	}
 

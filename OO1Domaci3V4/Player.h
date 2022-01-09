@@ -5,14 +5,14 @@
 namespace ndb {
 	class Player {
 		std::string _name;
-		int _value;
+		double _value;
 	public:
-		Player(std::string const& name, int value = 1000) :
+		Player(std::string const& name, long value = 1000) :
 			_name(name), _value(value) {}
 
-		int value() const;
-		int increase_value(unsigned int percent);
-		int decrease_vaue(unsigned int percent);
+		double value() const;
+		double increase_value(double percent);
+		double decrease_vaue(double percent);
 
 		friend bool operator==(Player const& lhs, Player const& rhs);
 		friend bool  operator!=(Player const& lhs, Player const& rhs);
