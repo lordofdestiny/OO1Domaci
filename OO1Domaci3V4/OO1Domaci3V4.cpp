@@ -22,8 +22,4 @@ int main() {
 	m.play_match();
 	std::cout << "Result points: " << m.get_points() << '\n';
 	std::cout << m << '\n';
-	delete m.get_teams().get_first();
-	delete m.get_teams().get_second();
-	delete m.get_points().get_first();
-	delete m.get_points().get_second();
 }

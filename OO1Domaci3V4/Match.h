@@ -17,6 +17,7 @@ namespace ndb {
 	private:
 		Pair<Team> _teams;
 		MatchOutcome _outcome = MatchOutcome::UNKNOWN;
+		mutable int _p_host = 0 , _p_guest = 0;
 		static inline const double _percent = 10;
 	public:
 		Match(Team* host, Team* guess) :
@@ -36,8 +37,7 @@ namespace ndb {
 		void play_match();
 		/* Check whether the match was played or not */
 		bool was_played() const;
-		/* Caller is required to delete content of the pair*/
-		Pair<int> get_points() const;
+		Pair<const int> get_points() const;
 
 		friend std::ostream& operator<<(std::ostream& os, Match const& match);
 	private:
