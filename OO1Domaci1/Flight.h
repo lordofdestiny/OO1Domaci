@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <utility>
 #include "Plane.h"
 
 class Flight
@@ -41,7 +42,8 @@ public:
 		return id;
 	}
 
-	Plane* const getPlane() const {
+	Plane const* getPlane() const {
+
 		return plane;
 	}
 

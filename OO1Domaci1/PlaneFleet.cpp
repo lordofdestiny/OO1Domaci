@@ -1,3 +1,4 @@
+#include <utility>
 #include "PlaneFleet.h"
 
 PlaneFleet::PlaneFleet(const PlaneFleet& rhs) :
@@ -16,7 +17,7 @@ PlaneFleet::PlaneFleet(const PlaneFleet& rhs) :
 	}
 }
 
-PlaneFleet::PlaneFleet(PlaneFleet&& rhs) noexcept : name(std::move(name)),
+PlaneFleet::PlaneFleet(PlaneFleet&& rhs) noexcept : name(std::move(rhs.name)),
 planesHead(std::exchange(rhs.planesHead, nullptr)),
 planesTail(std::exchange(rhs.planesTail, nullptr)) {}
 

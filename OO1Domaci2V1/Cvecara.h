@@ -35,5 +35,4 @@ private:
 	void freeBouquets();
 	NodePtr bouquets = nullptr;
 	int totalEarned = 1000;
-	char c[4]{};
 };

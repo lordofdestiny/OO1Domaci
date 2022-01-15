@@ -6,7 +6,7 @@ class PlaneList
 private:
 	struct Node {
 		Plane* plane;
-		Node* next;
+		Node* next = nullptr;
 	};
 	Node* head, * tail;
 public:

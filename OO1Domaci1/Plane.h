@@ -7,8 +7,8 @@ class Plane
 {
 private:
 	std::string name;
-	Pilot* pilot, * copilot;
 	unsigned capacity;
+	Pilot* pilot, * copilot;
 public:
 	Plane(std::string name, unsigned passengers)
 		: name(name), capacity(passengers),

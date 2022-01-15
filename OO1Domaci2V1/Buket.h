@@ -58,6 +58,5 @@ private:
 	int buyPriceCache = 0;
 	int sellPriceCache = 0;
 	int earningsCache = 0;
-	char c[4]{};
 };
 
